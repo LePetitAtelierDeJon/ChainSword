@@ -1,4 +1,4 @@
-#include "ScannerEffect.h"
+#include "Light/LightEffects/ScannerEffect.h"
 
 void ScannerEffect::start(unsigned long startMillis)
 {

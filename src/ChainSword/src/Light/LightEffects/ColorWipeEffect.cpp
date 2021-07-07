@@ -1,4 +1,4 @@
-#include "ColorWipeEffect.h"
+#include "Light/LightEffects/ColorWipeEffect.h"
 
 void ColorWipeEffect::start(unsigned long startMillis)
 {

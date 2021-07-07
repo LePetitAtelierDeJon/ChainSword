@@ -1,4 +1,4 @@
-#include "BlinkEffect.h"
+#include "Light/LightEffects/BlinkEffect.h"
 
 void BlinkEffect::start(unsigned long startMillis)
 {

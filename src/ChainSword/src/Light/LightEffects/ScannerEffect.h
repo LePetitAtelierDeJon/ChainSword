@@ -1,7 +1,7 @@
 #ifndef SCANNEREFFECT_H_
 #define SCANNEREFFECT_H_
 
-#include "LightEffect.h"
+#include "Light/LightEffects/LightEffect.h"
 
 class ScannerEffect : public LightEffect
 {

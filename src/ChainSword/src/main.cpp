@@ -21,8 +21,10 @@ ChainSword chainSword;
 
 const Color primaryColor = Color(20, 20, 0);
 const Color secondaryColor = Color(0, 20, 20);
-Light bladeLight(&strip, LED_COUNT, 0, 60, primaryColor);
+Light bladeLight(&strip, 22, 0, 60, primaryColor);
+Light bladeLight2(&strip, 10, 22, 60, primaryColor);
 LightController controller(bladeLight);
+LightController controller2(bladeLight2);
 BlinkEffect blink;
 ColorWipeEffect wipe;
 ScannerEffect scanner;
@@ -35,14 +37,15 @@ void setup()
 
   stateMachine.changeState(&startState);
   bladeLight.changeTargetColor(secondaryColor);
+  bladeLight2.changeTargetColor(secondaryColor);
   strip.begin();
   strip.show();
   blink.init(&bladeLight);
   blink.setup(4, 500);
   controller.AddLightEffect("Blink", &blink);
-  wipe.init(&bladeLight);
+  wipe.init(&bladeLight2);
   wipe.setup(4, 50, false);
-  controller.AddLightEffect("Wipe", &wipe);
+  controller2.AddLightEffect("Wipe", &wipe);
   scanner.init(&bladeLight);
   scanner.setup(2, 20, false);
   scanner.setEffectSize(3);
@@ -51,10 +54,14 @@ void setup()
   // crawl.setup(-1, 20);
   // crawl.setEffectSize(5);
   // controller.AddLightEffect("Crawl", &crawl);
-  controller.SetEffect("Scanner", millis());
+//   controller.SetEffect("Scanner", millis());
+//   controller2.SetEffect("Wipe", millis());
+bladeLight.changeColor(primaryColor);
+bladeLight2.changeColor(secondaryColor);
 }
 
 void loop()
 {
-  controller.execute(millis());
+//   controller.execute(millis());
+//   controller2.execute(millis());
 }

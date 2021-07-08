@@ -20,30 +20,33 @@ public:
      * @return true if the state changes correctly.
      * @return false if at least one of the state is null.
      */
-    bool changeState(BaseState<T> *newState)
+    bool changeState(BaseState<T> *newState, unsigned long millis)
     {
-        if (nullptr == currentState || nullptr == newState)
-        {
+        if (nullptr == currentState && nullptr == newState)
+        {     
             return false;
         }
 
-        previousState = currentState;
-        currentState->exit(owner);
+        if (nullptr != currentState)
+        {
+            previousState = currentState;
+            currentState->exit(owner, millis);
+        }
         currentState = newState;
-        currentState->enter(owner);
+        currentState->enter(owner, millis);        
         return true;
     }
 
-    void execute() const
+    void execute(unsigned long millis) const
     {
-        if (currentState)
-        {
-            currentState->execute(owner);
+        if (nullptr != currentState)
+        {            
+            currentState->execute(owner, millis);
         }
 
-        if (globalState)
+        if (nullptr != globalState)
         {
-            globalState->execute(owner);
+            globalState->execute(owner, millis);
         }
     }
 

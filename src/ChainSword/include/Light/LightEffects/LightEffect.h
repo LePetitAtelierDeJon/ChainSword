@@ -42,7 +42,7 @@ public:
         }
     }
 
-    virtual bool isStopped() const = 0;
+    inline bool isStopped() const { return isStopped_; };
     virtual void stop(bool turnOff) = 0;
 
     inline void decrementEffectCounter()
@@ -50,6 +50,12 @@ public:
         if (effectCounter_ > 0)
         {
             --effectCounter_;
+        }
+
+        if (effectCounter_ <= 0)
+        {
+            Serial.println("effect counter < 0");
+            isStopped_ = true;
         }
     }
 
@@ -62,6 +68,7 @@ protected:
     unsigned long previousEffectMillis_;
     uint8_t currentIndex_;
     bool turnOffAtStop_;
+    bool isStopped_ = false;
 };
 
 #endif // !LIGHTEFFECT_H_

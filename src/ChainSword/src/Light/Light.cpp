@@ -36,8 +36,8 @@ void Light::changeColor(uint8_t red, uint8_t green, uint8_t blue)
 void Light::changeColor(Color color)
 {
     lightColor_ = color;
-    strip_->fill(strip_->Color(lightColor_.red, lightColor_.green, lightColor_.blue), firstPixelIndex_, pixelCount_);
-    strip_->show();
+//     strip_->fill(strip_->Color(lightColor_.red, lightColor_.green, lightColor_.blue), firstPixelIndex_, pixelCount_);
+//     strip_->show();
 }
 
 void Light::changeTargetColor(uint8_t red, uint8_t green, uint8_t blue)

@@ -2,7 +2,7 @@
 
 void ColorWipeEffect::start(unsigned long startMillis)
 {
-    light_->turnTargetOn();
+    light_->on();
     previousEffectMillis_ = startMillis;
 }
 
@@ -10,7 +10,7 @@ void ColorWipeEffect::executeEffect(unsigned long millis)
 {
     if (currentIndex_ < light_->firstPixelIndex() + light_->pixelCount())
     {
-        light_->setPixelColor(currentIndex_++);
+        light_->setPixelTargetColor(currentIndex_);
     }
     else
     {
@@ -18,10 +18,15 @@ void ColorWipeEffect::executeEffect(unsigned long millis)
         currentIndex_ = 0;
         if (effectCounter_ > 0 || effectCounter_ <= -1)
         {
-            light_->turnTargetOn();
+            light_->on();
         }
     }
-    previousEffectMillis_ = millis;
+
+    if (effectCounter_ > 0)
+    {
+        ++currentIndex_;
+        previousEffectMillis_ = millis;
+    }
 }
 
 void ColorWipeEffect::stop(bool turnOff)
@@ -32,13 +37,13 @@ void ColorWipeEffect::stop(bool turnOff)
     }
     else
     {
-        light_->on();
+        light_->turnTargetOn();
     }
     previousEffectMillis_ = 0;
     currentIndex_ = 0;
 }
 
-bool ColorWipeEffect::isStopped() const
-{
-    return false;
-}
+// bool ColorWipeEffect::isStopped() const
+// {
+//     return false;
+// }

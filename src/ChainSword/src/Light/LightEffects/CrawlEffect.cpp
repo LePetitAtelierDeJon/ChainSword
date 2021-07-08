@@ -7,11 +7,11 @@ void CrawlEffect::start(unsigned long startMillis)
 
 void CrawlEffect::executeEffect(unsigned long millis)
 {
-    light_->setPixelColor(currentIndex_ - effectSize_, otherColor_);
+    light_->setPixelColor(currentIndex_ - effectSize_);
 
     if (currentIndex_ < light_->firstPixelIndex() + light_->pixelCount())
     {
-        light_->setPixelColor(currentIndex_);
+        light_->setPixelTargetColor(currentIndex_);
     }
 
     currentIndex_ += 1;
@@ -27,7 +27,7 @@ void CrawlEffect::executeEffect(unsigned long millis)
 
 void CrawlEffect::stop(bool turnOff)
 {
-    light_->off();
+    light_->on();
     previousEffectMillis_ = 0;
     currentIndex_ = 0;
 }

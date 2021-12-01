@@ -11,18 +11,11 @@
 #include "ChainSword.h"
 #include "Light/Light.h"
 #include "Light/LightController.h"
-#include "Light/LightEffects/BlinkEffect.h"
-#include "Light/LightEffects/ColorWipeEffect.h"
-#include "Light/LightEffects/ScannerEffect.h"
-#include "Light/LightEffects/CrawlEffect.h"
-#include "Light/LightEffects/BreatheEffect.h"
-#include "Light/LightEffects/FadeEffect.h"
 
 #define LED_PIN 6
 #define MOTOR_PIN 4
 #define TRIGGER_PIN 2
 #define LED_COUNT 32
-#define CYCLE 60
 
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 StateMachine<ChainSword> stateMachine;
@@ -33,16 +26,9 @@ FullPowerState fullPowerState;
 CoolingState coolingState;
 ChainSword chainSword;
 
-const Color blue = Color(0, 20, 20);
-const Color red = Color(20, 0, 0);
-Light bladeLight(&strip, LED_COUNT, 0, 60, blue);
+Light bladeLight(&strip, LED_COUNT, 0, Color(0,0,0));
 LightController controller(bladeLight);
-BlinkEffect blink;
-ColorWipeEffect wipe;
-ScannerEffect scanner;
-CrawlEffect crawl;
-BreatheEffect breathe;
-FadeEffect fade;
+
 
 void trigger();
 void triggerOff();
@@ -59,7 +45,7 @@ void setup()
     Serial.println("+++ Chainsword Initialisation +++");
     chainSword.setLightController(&controller);
     chainSword.setMotorPin(MOTOR_PIN);
-    stateMachine.setOwner(&chainSword);
+    chainSword.setStateMachine(&stateMachine);
 
     // Setup States
     Serial.println("+++ Setup States +++");
@@ -80,29 +66,8 @@ void setup()
     coolingState.addExitState(COOLED_TRANSITION, &idleState);
     coolingState.setStateMachine(&stateMachine);
 
-    Serial.println("+++ Setup Light Effects +++");
-    // Start animation
-    wipe.setup(1, 20, false);
-    controller.AddLightEffect(STARTUP_ANIMATION, &wipe);
-        
-    //Blade heating animation
-    fade.setup(20, 100, false);
-    controller.AddLightEffect(RUNNING_ANIMATION, &fade);
-
-    // Overheat animation
-    crawl.setup(-1, 8);
-    crawl.setEffectSize(10);
-    controller.AddLightEffect(OVERHEAT_ANIMATION, &crawl);
-
-    // Cooling animation
-    blink.setup(-1, 200);
-    controller.AddLightEffect(COOLING_ANIMATION, &blink);
-
-    // Idle animation
-    scanner.setup(1, 50, false);
-    scanner.setEffectSize(3);
-    controller.AddLightEffect(IDLE_ANIMATION, &scanner);
-
+    chainSword.init();
+    
     stateMachine.changeState(&startState, millis());
 
     strip.begin();
@@ -137,8 +102,6 @@ void trigger()
 }
 
 bool switchstate = false;
-
-unsigned long previousMillis = 0;
 
 void loop()
 {

@@ -21,9 +21,6 @@ public:
     void enter(ChainSword *context, unsigned long millis)
     {
         Serial.println("-- Start Cooling Machine --");       
-        context->lightController()->GetLight().changeTargetColor(Color(20, 0, 0));
-        context->lightController()->GetLight().changeColor(Color(0, 10, 20));
-
         context->lightController()->SetEffect(COOLING_ANIMATION, millis);  
         startMillis = millis;
     }
@@ -32,6 +29,7 @@ public:
     {
         Serial.println("-- End Cooling Machine --");
         context->lightController()->StopEffect(COOLING_ANIMATION, millis);
+        context->lightController()->GetLight().on();
     }
 
 private:

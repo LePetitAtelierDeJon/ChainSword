@@ -19,7 +19,6 @@ public:
             {
                 previousMillis = millis;
                 transitionOver = true;
-                context->lightController()->GetLight().changeColor(Color(20, 0, 0));
             }
             else if (millis - previousMillis > 2000)
             {
@@ -30,27 +29,19 @@ public:
 
     void enter(ChainSword *context, unsigned long millis)
     {
-        Serial.println("Enter Running");
-
-        context->lightController()->GetLight().changeTargetColor(Color(20, 0, 0));
-        context->lightController()->GetLight().changeColor(Color(0, 10, 20));
+        //Serial.println("Enter Running");
 
         context->lightController()->SetEffect(RUNNING_ANIMATION, millis);
         transitionOver = false;
-        Serial.println("End Enter Running");
     }
 
     void exit(ChainSword *context, unsigned long millis)
     {
-        Serial.println("exit running state");
+       // Serial.println("exit running state");
         context->stopMotor();
     }
 
 private:
-    Color baseColor = Color(30, 0, 0);
-    Color currentColor = Color(30, 0, 0);
-    Color colorAdd = Color(25, 0, 0);
-
     unsigned long previousMillis = 0;
     bool transitionOver = false;
 };

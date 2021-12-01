@@ -11,7 +11,8 @@ public:
     void execute(ChainSword *context, unsigned long millis)
     {    
         context->lightController()->execute(millis);
-        if(millis - previousMillis > 10000)
+        
+        if(millis - previousMillis > 20000)
         {
             context->lightController()->SetEffect(IDLE_ANIMATION, millis);  
             previousMillis = millis;
@@ -20,15 +21,13 @@ public:
 
     void enter(ChainSword *context, unsigned long millis)
     {        
-        Serial.println("-- Chainsword ready to use --"); 
-        context->lightController()->GetLight().changeTargetColor(Color(0, 10, 20));
-        context->lightController()->GetLight().changeColor(Color(0, 20, 40));          
+        Serial.println("-- Chainsword ready to use --");         
         previousMillis = millis; 
     }
 
     void exit(ChainSword *context, unsigned long millis)
     {
-        Serial.println("Exit idle.");
+        //Serial.println("Exit idle.");
         context->lightController()->StopEffect(IDLE_ANIMATION, millis);
     }
 

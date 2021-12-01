@@ -15,9 +15,7 @@ public:
 
     void enter(ChainSword *context, unsigned long millis)
     {    
-        Serial.println("Overheat State");
-        context->lightController()->GetLight().changeTargetColor(Color(20, 0, 0));
-        context->lightController()->GetLight().changeColor(Color(10, 10, 0));
+        Serial.println("Overheat State");        
         context->lightController()->SetEffect(OVERHEAT_ANIMATION, millis);    
     }
 

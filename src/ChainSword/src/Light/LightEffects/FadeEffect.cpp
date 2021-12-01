@@ -5,8 +5,9 @@ void FadeEffect::start(unsigned long startMillis)
     currentEffectCounter_ = effectCounter_;
     previousEffectMillis_ = startMillis;
     isStopped_ = false;
-    currentColor = light_->color();    
-    addColor = (light_->targetColor() - light_->color()) / effectCounter_;    
+    currentColor = effectColor_;    
+    addColor = (targetColor_ - currentColor) / effectCounter_;
+    light_->changeColor(currentColor);    
 }
 
 void FadeEffect::executeEffect(unsigned long millis)

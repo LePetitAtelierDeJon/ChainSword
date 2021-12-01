@@ -60,6 +60,26 @@ public:
         }
     }
 
+    inline Color effectColor() const
+    {
+        return effectColor_;
+    }
+
+    inline Color targetColor() const
+    {
+        return targetColor_;
+    }
+
+    inline void setEffectColor(Color color)
+    {
+        effectColor_ = color;
+    }
+
+    inline void setTargetColor(Color color)
+    {
+        targetColor_ = color;
+    }
+
     inline bool canExecute(unsigned long millis) { return (millis - previousEffectMillis_) >= effectFrequency_; }
 
 protected:
@@ -71,6 +91,8 @@ protected:
     uint8_t currentIndex_;
     bool turnOffAtStop_;
     bool isStopped_ = false;
+    Color effectColor_;
+    Color targetColor_;
 };
 
 #endif // !LIGHTEFFECT_H_

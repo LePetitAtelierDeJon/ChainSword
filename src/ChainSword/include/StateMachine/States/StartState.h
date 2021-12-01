@@ -21,8 +21,6 @@ public:
     void enter(ChainSword *context, unsigned long millis)
     {        
         Serial.println("-- Start Chainsword Initiaisation --");
-        context->lightController()->GetLight().changeTargetColor(Color(0, 10, 20));
-        context->lightController()->GetLight().changeColor(Color(0, 0, 0));
         context->lightController()->SetEffect(STARTUP_ANIMATION, millis);
     }
 

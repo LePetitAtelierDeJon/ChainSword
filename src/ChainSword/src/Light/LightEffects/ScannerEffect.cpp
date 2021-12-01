@@ -2,18 +2,18 @@
 
 void ScannerEffect::start(unsigned long startMillis)
 {
-    light_->turnTargetOn();
+    light_->changeColor(effectColor_);
     previousEffectMillis_ = startMillis;
     currentEffectCounter_ = effectCounter_;
 }
 
 void ScannerEffect::executeEffect(unsigned long millis)
 {
-    light_->setPixelTargetColor(currentIndex_ - (effectDirection_ * effectSize_));
+    light_->setPixelColor(currentIndex_ - (effectDirection_ * effectSize_), effectColor_);
 
     if (currentIndex_ < light_->firstPixelIndex() + light_->pixelCount() && currentIndex_ >= light_->firstPixelIndex())
     {
-        light_->setPixelColor(currentIndex_);
+        light_->setPixelColor(currentIndex_, targetColor_);
     }
 
     if (currentIndex_ >= light_->firstPixelIndex() + light_->pixelCount() - 1 + effectSize_ || currentIndex_ <= light_->firstPixelIndex() - effectSize_)
@@ -37,7 +37,7 @@ void ScannerEffect::stop(bool turnOff)
     }
     else
     {
-        light_->turnTargetOn();
+        light_->on();
     }
 
     previousEffectMillis_ = 0;

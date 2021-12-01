@@ -8,10 +8,9 @@
  * @param updateFrequency The update frequency of the light.
  * @param lightColor The light Color
  */
-Light::Light(Adafruit_NeoPixel *strip, uint8_t pixelCount, uint8_t firstPixelIndex, long updateFrequency, Color lightColor) : strip_(strip),
+Light::Light(Adafruit_NeoPixel *strip, uint8_t pixelCount, uint8_t firstPixelIndex, Color lightColor) : strip_(strip),
                                                                                                                               pixelCount_(pixelCount),
                                                                                                                               firstPixelIndex_(firstPixelIndex),
-                                                                                                                              updateFrequency_(updateFrequency),
                                                                                                                               lightColor_(lightColor)
 {
 }
@@ -40,19 +39,6 @@ void Light::changeColor(Color color)
     strip_->show();
 }
 
-void Light::changeTargetColor(int red, int green, int blue)
-{
-    Color color = Color(red, green, blue);
-    changeTargetColor(color);
-}
-
-void Light::changeTargetColor(Color color)
-{
-    targetColor_ = color;
-    // strip_->fill(strip_->Color(targetColor_.red, targetColor_.green, targetColor_.blue), firstPixelIndex_, pixelCount_);
-    // strip_->show();
-}
-
 /**
  * Hey, who turned out the lights?
  */
@@ -74,21 +60,10 @@ void Light::on()
 /**
  * Turn on the lights.
  */
-void Light::turnTargetOn()
-{
-    strip_->fill(strip_->Color((uint8_t)targetColor_.red, (uint8_t)targetColor_.green, (uint8_t)targetColor_.blue), firstPixelIndex_, pixelCount_);
-    strip_->show();
-}
 
 void Light::setPixelColor(uint8_t pixelIndex)
 {
     strip_->setPixelColor(pixelIndex, strip_->Color((uint8_t)lightColor_.red, (uint8_t)lightColor_.green, (uint8_t)lightColor_.blue));
-    strip_->show();
-}
-
-void Light::setPixelTargetColor(uint8_t pixelIndex)
-{
-    strip_->setPixelColor(pixelIndex, strip_->Color((uint8_t)targetColor_.red, (uint8_t)targetColor_.green, (uint8_t)targetColor_.blue));
     strip_->show();
 }
 

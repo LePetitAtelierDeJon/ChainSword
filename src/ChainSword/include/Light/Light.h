@@ -35,10 +35,9 @@ public:
 	 * @param strip The led strip used.
 	 * @param pixelCount The number of pixel needed for the light.
 	 * @param firstPixelIndex The index of the first pixel.
-	 * @param updateFrequency The update frequency of the light.
 	 * @param lightColor The light Color
 	 */
-	Light(Adafruit_NeoPixel *strip, uint8_t pixelCount, uint8_t firstPixelIndex, long updateFrequency, Color lightColor);
+	Light(Adafruit_NeoPixel *strip, uint8_t pixelCount, uint8_t firstPixelIndex, Color lightColor);
 
 	/**
 	 * Set a new color for the light.
@@ -54,9 +53,6 @@ public:
 	 */
 	void changeColor(Color color);
 
-	void changeTargetColor(int red, int green, int blue);
-	void changeTargetColor(Color color);
-
 	/**
 	* Hey, who turned out the lights?
 	*/
@@ -67,16 +63,13 @@ public:
 	*/
 	void on();
 
-	void turnTargetOn();
 
 	inline uint8_t firstPixelIndex() const { return firstPixelIndex_; }
 	inline uint8_t pixelCount() const { return pixelCount_; }
 	void setPixelColor(uint8_t pixelIndex);
-	void setPixelTargetColor(uint8_t pixelIndex);
 	void setPixelColor(uint8_t pixelIndex, Color color);
 	void setPixelColor(uint8_t pixelIndex, uint32_t color);
 
-    inline Color targetColor() const { return targetColor_; }
     inline Color color() const { return lightColor_; }
 
 private:
@@ -85,12 +78,7 @@ private:
 	uint8_t pixelCount_;
 	uint8_t firstPixelIndex_;
 
-	// Light time related properties.
-	unsigned long updateFrequency_;
-
 	Color lightColor_;
-	Color targetColor_;
-    Color firstColor_;
 };
 
 #endif // !LIGHT_HPP_

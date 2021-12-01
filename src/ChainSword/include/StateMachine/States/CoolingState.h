@@ -24,14 +24,14 @@ public:
         context->lightController()->GetLight().changeTargetColor(Color(20, 0, 0));
         context->lightController()->GetLight().changeColor(Color(0, 10, 20));
 
-        context->lightController()->SetEffect("Blink", millis);  
+        context->lightController()->SetEffect(COOLING_ANIMATION, millis);  
         startMillis = millis;
     }
 
     void exit(ChainSword *context, unsigned long millis)
     {
         Serial.println("-- End Cooling Machine --");
-        context->lightController()->StopEffect("Blink", millis);
+        context->lightController()->StopEffect(COOLING_ANIMATION, millis);
     }
 
 private:

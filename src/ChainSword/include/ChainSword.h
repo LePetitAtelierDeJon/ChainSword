@@ -3,6 +3,12 @@
 
 #include "Light/LightController.h"
 
+#define STARTUP_ANIMATION 0
+#define IDLE_ANIMATION 1
+#define RUNNING_ANIMATION 2
+#define OVERHEAT_ANIMATION 3
+#define COOLING_ANIMATION 4
+
 class ChainSword
 {
 public:

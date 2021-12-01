@@ -12,7 +12,7 @@ public:
     void execute(ChainSword *context, unsigned long millis)
     {
         context->lightController()->execute(millis);
-        if(context->lightController()->isEffectStopped("Wipe"))
+        if(context->lightController()->isEffectStopped(STARTUP_ANIMATION))
         {
             switchState(IDLE_TRANSITION, millis);
         }
@@ -20,15 +20,15 @@ public:
 
     void enter(ChainSword *context, unsigned long millis)
     {        
-        Serial.println("enter start");
+        Serial.println("-- Start Chainsword Initiaisation --");
         context->lightController()->GetLight().changeTargetColor(Color(0, 10, 20));
         context->lightController()->GetLight().changeColor(Color(0, 0, 0));
-        context->lightController()->SetEffect("Wipe", millis);
+        context->lightController()->SetEffect(STARTUP_ANIMATION, millis);
     }
 
     void exit(ChainSword *context, unsigned long millis)
     {
-        Serial.println("exit start");
+        Serial.println("-- Chainsword Initialization Over --");
     }
 };
 #endif // !STARTSTATE_H_

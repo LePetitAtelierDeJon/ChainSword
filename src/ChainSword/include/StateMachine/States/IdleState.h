@@ -13,7 +13,7 @@ public:
         context->lightController()->execute(millis);
         if(millis - previousMillis > 10000)
         {
-            context->lightController()->SetEffect("Scanner", millis);  
+            context->lightController()->SetEffect(IDLE_ANIMATION, millis);  
             previousMillis = millis;
         }
     }
@@ -29,7 +29,7 @@ public:
     void exit(ChainSword *context, unsigned long millis)
     {
         Serial.println("Exit idle.");
-        context->lightController()->StopEffect("Scanner", millis);
+        context->lightController()->StopEffect(IDLE_ANIMATION, millis);
     }
 
 private:

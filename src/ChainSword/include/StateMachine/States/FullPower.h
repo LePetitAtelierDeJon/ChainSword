@@ -18,11 +18,12 @@ public:
         Serial.println("Overheat State");
         context->lightController()->GetLight().changeTargetColor(Color(20, 0, 0));
         context->lightController()->GetLight().changeColor(Color(10, 10, 0));
-        context->lightController()->SetEffect("Crawl", millis);    
+        context->lightController()->SetEffect(OVERHEAT_ANIMATION, millis);    
     }
 
     void exit(ChainSword *context, unsigned long millis)
     {
+        context->lightController()->StopEffect(OVERHEAT_ANIMATION, millis);
     }
 };
 #endif // !FULLPOWERSTATE_H_

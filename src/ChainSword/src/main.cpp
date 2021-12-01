@@ -83,30 +83,25 @@ void setup()
     Serial.println("+++ Setup Light Effects +++");
     // Start animation
     wipe.setup(1, 20, false);
-    controller.AddLightEffect("Wipe", &wipe);
+    controller.AddLightEffect(STARTUP_ANIMATION, &wipe);
         
     //Blade heating animation
     fade.setup(20, 100, false);
-    controller.AddLightEffect("Fade", &fade);
+    controller.AddLightEffect(RUNNING_ANIMATION, &fade);
 
     // Overheat animation
     crawl.setup(-1, 8);
     crawl.setEffectSize(10);
-    controller.AddLightEffect("Crawl", &crawl);
+    controller.AddLightEffect(OVERHEAT_ANIMATION, &crawl);
 
     // Cooling animation
     blink.setup(-1, 200);
-    controller.AddLightEffect("Blink", &blink);
+    controller.AddLightEffect(COOLING_ANIMATION, &blink);
 
     // Idle animation
     scanner.setup(1, 50, false);
     scanner.setEffectSize(3);
-    controller.AddLightEffect("Scanner", &scanner);
-
-    
-
-    breathe.setup(-1, 10);
-    controller.AddLightEffect("Breathe", &breathe);
+    controller.AddLightEffect(IDLE_ANIMATION, &scanner);
 
     stateMachine.changeState(&startState, millis());
 

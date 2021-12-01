@@ -13,15 +13,18 @@ public:
     void execute(ChainSword *context, unsigned long millis)
     {
         context->lightController()->execute(millis);
-        if (context->lightController()->isEffectStopped("Fade") && !transitionOver)
+        if (context->lightController()->isEffectStopped(RUNNING_ANIMATION))
         {
-            previousMillis = millis;
-            transitionOver = true;
-            context->lightController()->GetLight().changeColor(Color(20, 0, 0));
-        }
-        if (context->lightController()->isEffectStopped("Fade") && transitionOver && (millis - previousMillis > 2000))
-        {
-            switchState(OVERHEAT_TRANSITION, millis);
+            if (!transitionOver)
+            {
+                previousMillis = millis;
+                transitionOver = true;
+                context->lightController()->GetLight().changeColor(Color(20, 0, 0));
+            }
+            else if (millis - previousMillis > 2000)
+            {
+                switchState(OVERHEAT_TRANSITION, millis);
+            }
         }
     }
 
@@ -32,8 +35,8 @@ public:
         context->lightController()->GetLight().changeTargetColor(Color(20, 0, 0));
         context->lightController()->GetLight().changeColor(Color(0, 10, 20));
 
-        context->lightController()->SetEffect("Fade", millis);  
-        transitionOver = false;      
+        context->lightController()->SetEffect(RUNNING_ANIMATION, millis);
+        transitionOver = false;
         Serial.println("End Enter Running");
     }
 

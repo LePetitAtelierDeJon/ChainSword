@@ -7,27 +7,27 @@ Light &LightController::GetLight() const
     return light_;
 }
 
-void LightController::AddLightEffect(String effectName, LightEffect *effect)
+void LightController::AddLightEffect(uint8_t effectIndex, LightEffect *effect)
 {
     effect->setLight(light_);
-    lightEffects_[effectName] = effect;
+    lightEffects_[effectIndex] = effect;
 }
 
-void LightController::SetEffect(String effectName, unsigned long millis)
+void LightController::SetEffect(uint8_t effectIndex, unsigned long millis)
 {
-    lightEffects_[effectName]->start(millis); 
-    activeLightEffect_ = effectName;    
+    lightEffects_[effectIndex]->start(millis); 
+    activeLightEffect_ = effectIndex;    
 }
 
-void LightController::StopEffect(String effectName, unsigned long millis)
+void LightController::StopEffect(uint8_t effectIndex, unsigned long millis)
 {
-    lightEffects_[effectName]->stop(millis);
-    activeLightEffect_ = "";
+    lightEffects_[effectIndex]->stop(millis);
+    activeLightEffect_ = -1;
 }
 
 void LightController::execute(unsigned long millis)
 {
-    if (activeLightEffect_ != "")
+    if (activeLightEffect_ != -1)
     {
         if (lightEffects_[activeLightEffect_]->canExecute(millis))
         {

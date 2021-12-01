@@ -2,8 +2,7 @@
 
 void CrawlEffect::start(unsigned long startMillis)
 {
-    previousEffectMillis_ = startMillis;
-    currentEffectCounter_ = effectCounter_;
+    LightEffect::start(startMillis);
     light_->changeColor(effectColor_);
 }
 
@@ -18,7 +17,7 @@ void CrawlEffect::executeEffect(unsigned long millis)
 
     currentIndex_ += 1;
 
-    if (currentIndex_ >= light_->firstPixelIndex() + light_->pixelCount() + effectSize_ )
+    if (currentIndex_ >= light_->firstPixelIndex() + light_->pixelCount() + effectSize_)
     {
         decrementEffectCounter();
         currentIndex_ = 0;
@@ -29,21 +28,13 @@ void CrawlEffect::executeEffect(unsigned long millis)
 
 void CrawlEffect::stop(bool turnOff)
 {
+    LightEffect::stop(turnOff);
     light_->on();
-    previousEffectMillis_ = 0;
-    currentIndex_ = 0;
 }
 
-bool CrawlEffect::isStopped() const
+void CrawlEffect::setup(uint8_t effectCounter, unsigned long effectFrequency, bool turnOffAtStop)
 {
-    return false;
-}
-
-void CrawlEffect::setup(uint8_t effectCounter, unsigned long effectFrequency)
-{
-    effectCounter_ = effectCounter;
-    effectFrequency_ = effectFrequency;
-    currentIndex_ = 0;
+    LightEffect::setup(effectCounter, effectFrequency, turnOffAtStop);
     fadeSize_ = 0;
     effectSize_ = 0;
 }

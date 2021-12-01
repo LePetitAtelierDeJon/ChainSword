@@ -70,7 +70,7 @@ public:
         lightController_->AddLightEffect(RUNNING_ANIMATION, &fade_);
 
         // Overheat animation
-        crawl_.setup(-1, 8);
+        crawl_.setup(-1, 8, false);
         crawl_.setEffectSize(10);
         crawl_.setTargetColor(red);
         crawl_.setEffectColor(overheatBaseColor);

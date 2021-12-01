@@ -2,9 +2,8 @@
 
 void ColorWipeEffect::start(unsigned long startMillis)
 {
+    LightEffect::start(startMillis);
     light_->changeColor(effectColor_);
-    previousEffectMillis_ = startMillis;
-    currentEffectCounter_ = effectCounter_;
 }
 
 void ColorWipeEffect::executeEffect(unsigned long millis)
@@ -32,6 +31,7 @@ void ColorWipeEffect::executeEffect(unsigned long millis)
 
 void ColorWipeEffect::stop(bool turnOff)
 {
+    LightEffect::stop(turnOff);
     if (turnOff)
     {
         light_->off();
@@ -40,6 +40,4 @@ void ColorWipeEffect::stop(bool turnOff)
     {
         light_->changeColor(targetColor_);
     }
-    previousEffectMillis_ = 0;
-    currentIndex_ = 0;
 }

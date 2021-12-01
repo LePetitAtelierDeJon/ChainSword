@@ -8,10 +8,9 @@ class ColorWipeEffect : public LightEffect
 public:
     virtual ~ColorWipeEffect() {}
     
-    void start(unsigned long startMillis);
-    void executeEffect(unsigned long millis);
-    bool isStopped() const;
-    void stop(bool turnOff);
+    void start(unsigned long startMillis) override;
+    void executeEffect(unsigned long millis) override;
+    void stop(bool turnOff) override;
 
 private:
    uint8_t currentIndex_; 

@@ -2,23 +2,22 @@
 
 void FadeEffect::start(unsigned long startMillis)
 {
-    currentEffectCounter_ = effectCounter_;
-    previousEffectMillis_ = startMillis;
-    isStopped_ = false;
-    currentColor = effectColor_;    
-    addColor = (targetColor_ - currentColor) / effectCounter_;
-    light_->changeColor(currentColor);    
+    LightEffect::start(startMillis);
+    currentColor_ = effectColor_;
+    addColor_ = (targetColor_ - currentColor_) / effectCounter_;
+    light_->changeColor(currentColor_);
 }
 
 void FadeEffect::executeEffect(unsigned long millis)
 {
-    currentColor += addColor;
-    light_->changeColor(currentColor);
+    currentColor_ += addColor_;
+    light_->changeColor(currentColor_);
     decrementEffectCounter();
 }
 
 void FadeEffect::stop(bool turnOff)
 {
+    LightEffect::stop(turnOff);
     if (turnOff)
     {
         light_->off();
@@ -26,7 +25,5 @@ void FadeEffect::stop(bool turnOff)
     else
     {
         light_->on();
-    }
-
-    previousEffectMillis_ = 0;
+    }    
 }

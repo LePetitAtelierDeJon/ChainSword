@@ -8,14 +8,13 @@ class FadeEffect : public LightEffect
 public:
     virtual ~FadeEffect() {}
     
-    void start(unsigned long startMillis);
-    void executeEffect(unsigned long millis);
-    bool isStopped() const;
-    void stop(bool turnOff);
+    void start(unsigned long startMillis) override;
+    void executeEffect(unsigned long millis) override;
+    void stop(bool turnOff) override;
 
 private:
-    Color currentColor;
-    Color addColor;
+    Color currentColor_;
+    Color addColor_;
 };
 
 #endif // !FADEEFFECT_H_

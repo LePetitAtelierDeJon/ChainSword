@@ -12,7 +12,7 @@ public:
     {    
         context->lightController()->execute(millis);
         
-        if(millis - previousMillis > 20000)
+        if(millis - previousMillis > 10000)
         {
             context->lightController()->SetEffect(IDLE_ANIMATION, millis);  
             previousMillis = millis;

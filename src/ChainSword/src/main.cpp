@@ -29,7 +29,6 @@ ChainSword chainSword;
 Light bladeLight(&strip, LED_COUNT, 0, Color(0,0,0));
 LightController controller(bladeLight);
 
-
 void trigger();
 void triggerOff();
 

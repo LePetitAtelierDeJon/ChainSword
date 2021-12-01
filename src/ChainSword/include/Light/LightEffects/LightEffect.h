@@ -10,17 +10,19 @@ public:
     virtual ~LightEffect() {}
     LightEffect() {}
 
-    virtual void init(Light *light)
+    virtual void setLight(Light &light)
     {
-        light_ = light;
+        light_ = &light;
     }
 
     virtual void setup(uint8_t effectCounter, unsigned long effectFrequency, bool turnOffAtStop = true)
     {
         effectCounter_ = effectCounter;
+        currentEffectCounter_ = effectCounter_;
         effectFrequency_ = effectFrequency;
         currentIndex_ = 0;
         turnOffAtStop_ = turnOffAtStop;
+        isStopped_ = false;
     }
 
     virtual void start(unsigned long startMillis) = 0;
@@ -30,7 +32,7 @@ public:
     {
         if (canExecute(millis))
         {
-            if (effectCounter_ > 0 || effectCounter_ <= -1)
+            if (currentEffectCounter_ > 0 || currentEffectCounter_ <= -1)
             {
                 executeEffect(millis);
                 previousEffectMillis_ = millis;
@@ -47,14 +49,13 @@ public:
 
     inline void decrementEffectCounter()
     {
-        if (effectCounter_ > 0)
+        if (currentEffectCounter_ > 0)
         {
-            --effectCounter_;
+            --currentEffectCounter_;
         }
 
-        if (effectCounter_ <= 0)
+        if (currentEffectCounter_ <= 0)
         {
-            Serial.println("effect counter < 0");
             isStopped_ = true;
         }
     }
@@ -64,6 +65,7 @@ public:
 protected:
     Light *light_;
     uint8_t effectCounter_;
+    uint8_t currentEffectCounter_;
     unsigned long effectFrequency_;
     unsigned long previousEffectMillis_;
     uint8_t currentIndex_;

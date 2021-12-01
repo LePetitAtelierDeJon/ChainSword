@@ -37,6 +37,14 @@ public:
         return true;
     }
 
+    void makeTransition(uint8_t transitionName, unsigned long millis)
+    {
+        if (nullptr != currentState)
+        {
+            currentState->switchState(transitionName, millis);
+        }
+    }
+
     void execute(unsigned long millis) const
     {
         if (nullptr != currentState)

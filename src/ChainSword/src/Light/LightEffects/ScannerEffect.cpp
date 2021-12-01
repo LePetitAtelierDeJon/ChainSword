@@ -4,6 +4,7 @@ void ScannerEffect::start(unsigned long startMillis)
 {
     light_->turnTargetOn();
     previousEffectMillis_ = startMillis;
+    currentEffectCounter_ = effectCounter_;
 }
 
 void ScannerEffect::executeEffect(unsigned long millis)

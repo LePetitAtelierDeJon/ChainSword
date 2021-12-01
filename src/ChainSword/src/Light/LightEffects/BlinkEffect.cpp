@@ -3,6 +3,7 @@
 void BlinkEffect::start(unsigned long startMillis)
 {
     previousEffectMillis_ = startMillis;
+    currentEffectCounter_ = effectCounter_;
 }
 
 void BlinkEffect::executeEffect(unsigned long millis)

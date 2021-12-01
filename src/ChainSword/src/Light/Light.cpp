@@ -26,7 +26,7 @@ Light::Light() : strip_(nullptr)
  * @param green Green component of the color.
  * @param blue Blue component of the color.
  */
-void Light::changeColor(uint8_t red, uint8_t green, uint8_t blue)
+void Light::changeColor(int red, int green, int blue)
 {
     // uint32_t color = strip_.Color(red, green, blue);
     Color color = Color(red, green, blue);
@@ -36,11 +36,11 @@ void Light::changeColor(uint8_t red, uint8_t green, uint8_t blue)
 void Light::changeColor(Color color)
 {
     lightColor_ = color;
-//     strip_->fill(strip_->Color(lightColor_.red, lightColor_.green, lightColor_.blue), firstPixelIndex_, pixelCount_);
-//     strip_->show();
+    strip_->fill(strip_->Color((uint8_t)lightColor_.red, (uint8_t)lightColor_.green, (uint8_t)lightColor_.blue), firstPixelIndex_, pixelCount_);
+    strip_->show();
 }
 
-void Light::changeTargetColor(uint8_t red, uint8_t green, uint8_t blue)
+void Light::changeTargetColor(int red, int green, int blue)
 {
     Color color = Color(red, green, blue);
     changeTargetColor(color);
@@ -67,7 +67,7 @@ void Light::off()
  */
 void Light::on()
 {
-    strip_->fill(strip_->Color(lightColor_.red, lightColor_.green, lightColor_.blue), firstPixelIndex_, pixelCount_);
+    strip_->fill(strip_->Color((uint8_t)lightColor_.red, (uint8_t)lightColor_.green, (uint8_t)lightColor_.blue), firstPixelIndex_, pixelCount_);
     strip_->show();
 }
 
@@ -76,25 +76,25 @@ void Light::on()
  */
 void Light::turnTargetOn()
 {
-    strip_->fill(strip_->Color(targetColor_.red, targetColor_.green, targetColor_.blue), firstPixelIndex_, pixelCount_);
+    strip_->fill(strip_->Color((uint8_t)targetColor_.red, (uint8_t)targetColor_.green, (uint8_t)targetColor_.blue), firstPixelIndex_, pixelCount_);
     strip_->show();
 }
 
 void Light::setPixelColor(uint8_t pixelIndex)
 {
-    strip_->setPixelColor(pixelIndex, strip_->Color(lightColor_.red, lightColor_.green, lightColor_.blue));
+    strip_->setPixelColor(pixelIndex, strip_->Color((uint8_t)lightColor_.red, (uint8_t)lightColor_.green, (uint8_t)lightColor_.blue));
     strip_->show();
 }
 
 void Light::setPixelTargetColor(uint8_t pixelIndex)
 {
-    strip_->setPixelColor(pixelIndex, strip_->Color(targetColor_.red, targetColor_.green, targetColor_.blue));
+    strip_->setPixelColor(pixelIndex, strip_->Color((uint8_t)targetColor_.red, (uint8_t)targetColor_.green, (uint8_t)targetColor_.blue));
     strip_->show();
 }
 
 void Light::setPixelColor(uint8_t pixelIndex, Color color)
 {
-    strip_->setPixelColor(pixelIndex, strip_->Color(color.red, color.green, color.blue));
+    strip_->setPixelColor(pixelIndex, strip_->Color((uint8_t)color.red, (uint8_t)color.green, (uint8_t)color.blue));
     strip_->show();
 }
 

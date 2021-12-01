@@ -5,6 +5,9 @@
 #include "StateMachine/States/StartState.h"
 #include "StateMachine/States/IdleState.h"
 #include "StateMachine/States/RunningState.h"
+#include "StateMachine/States/FullPower.h"
+#include "StateMachine/States/CoolingState.h"
+#include "StateMachine/States/TransitionIndex.h"
 #include "ChainSword.h"
 #include "Light/Light.h"
 #include "Light/LightController.h"
@@ -12,128 +15,138 @@
 #include "Light/LightEffects/ColorWipeEffect.h"
 #include "Light/LightEffects/ScannerEffect.h"
 #include "Light/LightEffects/CrawlEffect.h"
+#include "Light/LightEffects/BreatheEffect.h"
+#include "Light/LightEffects/FadeEffect.h"
 
 #define LED_PIN 6
+#define MOTOR_PIN 4
+#define TRIGGER_PIN 2
 #define LED_COUNT 32
+#define CYCLE 60
 
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 StateMachine<ChainSword> stateMachine;
 StartState startState;
 IdleState idleState;
 RunningState runningState;
+FullPowerState fullPowerState;
+CoolingState coolingState;
 ChainSword chainSword;
 
-const Color primaryColor = Color(20, 20, 0);
-const Color secondaryColor = Color(0, 20, 20);
-Light bladeLight(&strip, LED_COUNT, 0, 60, primaryColor);
+const Color blue = Color(0, 20, 20);
+const Color red = Color(20, 0, 0);
+Light bladeLight(&strip, LED_COUNT, 0, 60, blue);
 LightController controller(bladeLight);
 BlinkEffect blink;
 ColorWipeEffect wipe;
 ScannerEffect scanner;
 CrawlEffect crawl;
+BreatheEffect breathe;
+FadeEffect fade;
 
 void trigger();
 void triggerOff();
 
 void setup()
 {
-    pinMode(2, INPUT_PULLUP);
-    attachInterrupt(digitalPinToInterrupt(2), trigger, CHANGE);
-
     Serial.begin(9600);
-    Serial.println("setup");
-    chainSword.setLight(&controller);
+    Serial.println("+++ Machine Spirit Awaken +++");
+
+    pinMode(TRIGGER_PIN, INPUT_PULLUP);
+    pinMode(MOTOR_PIN, OUTPUT);
+    attachInterrupt(digitalPinToInterrupt(TRIGGER_PIN), trigger, CHANGE);
+
+    Serial.println("+++ Chainsword Initialisation +++");
+    chainSword.setLightController(&controller);
+    chainSword.setMotorPin(MOTOR_PIN);
     stateMachine.setOwner(&chainSword);
 
-    wipe.init(&bladeLight);
+    // Setup States
+    Serial.println("+++ Setup States +++");
+    startState.addExitState(IDLE_TRANSITION, &idleState);
+    startState.setStateMachine(&stateMachine);
+
+    idleState.addExitState(PULL_TRIGGER_TRANSITION, &runningState);
+    idleState.setStateMachine(&stateMachine);
+
+    runningState.addExitState(RELEASE_TRIGGER_TRANSITION, &coolingState);
+    runningState.addExitState(OVERHEAT_TRANSITION, &fullPowerState);
+    runningState.setStateMachine(&stateMachine);
+
+    fullPowerState.addExitState(RELEASE_TRIGGER_TRANSITION, &coolingState);
+    fullPowerState.setStateMachine(&stateMachine);
+
+    coolingState.addExitState(PULL_TRIGGER_TRANSITION, &runningState);
+    coolingState.addExitState(COOLED_TRANSITION, &idleState);
+    coolingState.setStateMachine(&stateMachine);
+
+    Serial.println("+++ Setup Light Effects +++");
+    // Start animation
     wipe.setup(1, 20, false);
     controller.AddLightEffect("Wipe", &wipe);
+        
+    //Blade heating animation
+    fade.setup(20, 100, false);
+    controller.AddLightEffect("Fade", &fade);
 
-    blink.init(&bladeLight);
-    blink.setup(2, 500);
+    // Overheat animation
+    crawl.setup(-1, 8);
+    crawl.setEffectSize(10);
+    controller.AddLightEffect("Crawl", &crawl);
+
+    // Cooling animation
+    blink.setup(-1, 200);
     controller.AddLightEffect("Blink", &blink);
 
-    scanner.init(&bladeLight);
-    scanner.setup(-1, 20, false);
+    // Idle animation
+    scanner.setup(1, 50, false);
     scanner.setEffectSize(3);
     controller.AddLightEffect("Scanner", &scanner);
 
-    crawl.init(&bladeLight);
-    crawl.setup(10, 20);
-    crawl.setEffectSize(5);
-    controller.AddLightEffect("Crawl", &crawl);
-    //   controller.SetEffect("Scanner", millis());
-    //controller.SetEffect("Crawl", millis());
+    
+
+    breathe.setup(-1, 10);
+    controller.AddLightEffect("Breathe", &breathe);
 
     stateMachine.changeState(&startState, millis());
 
-    // bladeLight.changeTargetColor(secondaryColor);
     strip.begin();
     strip.show();
 
-    // bladeLight2.changeTargetColor(secondaryColor2);
-    // strip.begin();
-    // strip.show();
-    // blink.init(&bladeLight);
-    // blink.setup(4, 500);
-    // controller.AddLightEffect("Blink", &blink);
-    // blink2.init(&bladeLight2);
-    // blink2.setup(-1, 500);
-    // controller2.AddLightEffect("Blink", &blink2);
-    // //   wipe.init(&bladeLight);
-    // //   wipe.setup(4, 50, false);
-    // //   controller.AddLightEffect("Wipe", &wipe);
-    // scanner.init(&bladeLight2);
-    // scanner.setup(-1, 20, false);
-    // scanner.setEffectSize(3);
-    // controller2.AddLightEffect("Scanner", &scanner);
-    // crawl.init(&bladeLight);
-    // crawl.setup(-1, 20);
-    // crawl.setEffectSize(5);
-    // controller.AddLightEffect("Crawl", &crawl);
-    // //   controller.SetEffect("Scanner", millis());
-    // controller.SetEffect("Crawl", millis());
-    // controller2.SetEffect("Scanner", millis());
-    // // bladeLight.changeColor(primaryColor);
-    // // bladeLight2.changeColor(secondaryColor);
+    Serial.println("+++ End of Initialisation +++");
 }
 
-unsigned long dateDernierChangement = 0;
-const unsigned long dureeAntiRebond = 10;
+unsigned long previousDelay = 0;
+const unsigned long antiGhostingDelay = 100;
 unsigned long plop = 0;
 
 void trigger()
 {
-    unsigned long date = millis();
-    if ((date - dateDernierChangement) > dureeAntiRebond)
+    unsigned long currentMillis = millis();
+    if ((currentMillis - previousDelay) > antiGhostingDelay)
     {
-        dateDernierChangement = date;
-        Serial.println(plop++);
+        previousDelay = currentMillis;
 
         chainSword.toggleTrigger();
         if (chainSword.isTriggerOn())
         {
-            stateMachine.changeState(&runningState, millis());
+            Serial.println("-- Chainsword Activated --");
+            stateMachine.makeTransition(PULL_TRIGGER_TRANSITION, currentMillis);
         }
         else
         {
-            stateMachine.changeState(&idleState, millis());
+            Serial.println("-- Chainsword Deactivated --");
+            stateMachine.makeTransition(RELEASE_TRIGGER_TRANSITION, currentMillis);
         }
     }
 }
 
 bool switchstate = false;
 
+unsigned long previousMillis = 0;
+
 void loop()
 {
-    //controller.execute(millis());
-    //controller2.execute(millis());
-    stateMachine.execute(millis());
-
-    if (controller.isEffectStopped("Wipe") && !switchstate)
-    {
-        switchstate = true;
-        Serial.println("change state");
-        stateMachine.changeState(&idleState, millis());
-    }
+    unsigned long currentMillis = millis();
+    stateMachine.execute(currentMillis);
 }

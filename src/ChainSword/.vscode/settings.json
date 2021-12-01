@@ -1,6 +1,15 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
-        "map": "cpp"
+        "map": "cpp",
+        "valarray": "cpp",
+        "locale": "cpp",
+        "typeinfo": "cpp",
+        "ios": "cpp",
+        "istream": "cpp",
+        "numeric": "cpp",
+        "ostream": "cpp",
+        "support": "cpp",
+        "associative_base": "cpp"
     }
 }

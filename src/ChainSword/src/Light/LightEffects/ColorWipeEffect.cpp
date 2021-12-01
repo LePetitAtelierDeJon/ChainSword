@@ -4,6 +4,7 @@ void ColorWipeEffect::start(unsigned long startMillis)
 {
     light_->on();
     previousEffectMillis_ = startMillis;
+    currentEffectCounter_ = effectCounter_;
 }
 
 void ColorWipeEffect::executeEffect(unsigned long millis)

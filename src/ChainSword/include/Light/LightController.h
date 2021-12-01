@@ -15,9 +15,10 @@ public:
     Light &GetLight() const;
     void AddLightEffect(String effectName, LightEffect *effect);
     void SetEffect(String effectName, unsigned long millis);
+    void StopEffect(String effectName, unsigned long millis);
     void execute(unsigned long millis);
 
-    inline bool isEffectStopped(String effectName) const
+    inline bool isEffectStopped(String effectName)
     {
         return lightEffects_[effectName]->isStopped();
     }

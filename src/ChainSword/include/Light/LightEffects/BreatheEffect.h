@@ -12,7 +12,7 @@ public:
     void start(unsigned long startMillis);
     void executeEffect(unsigned long millis);
     bool isStopped() const;
-    void stop();
+    void stop(bool turnOff);
     void setEffectSize(uint8_t effectSize);
     void setEffectDuration(uint8_t duration);
 

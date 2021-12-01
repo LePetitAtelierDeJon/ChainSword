@@ -46,7 +46,7 @@ public:
 	 * @param green Green component of the color.
 	 * @param blue Blue component of the color.
 	 */
-	void changeColor(uint8_t red, uint8_t green, uint8_t blue);
+	void changeColor(int red, int green, int blue);
 
 	/**
 	 * Set a new color for the light.
@@ -54,7 +54,7 @@ public:
 	 */
 	void changeColor(Color color);
 
-	void changeTargetColor(uint8_t red, uint8_t green, uint8_t blue);
+	void changeTargetColor(int red, int green, int blue);
 	void changeTargetColor(Color color);
 
 	/**
@@ -76,6 +76,9 @@ public:
 	void setPixelColor(uint8_t pixelIndex, Color color);
 	void setPixelColor(uint8_t pixelIndex, uint32_t color);
 
+    inline Color targetColor() const { return targetColor_; }
+    inline Color color() const { return lightColor_; }
+
 private:
 	Adafruit_NeoPixel *strip_;
 
@@ -87,6 +90,7 @@ private:
 
 	Color lightColor_;
 	Color targetColor_;
+    Color firstColor_;
 };
 
 #endif // !LIGHT_HPP_

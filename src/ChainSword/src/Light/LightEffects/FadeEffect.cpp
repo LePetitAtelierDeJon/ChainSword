@@ -15,10 +15,10 @@ void FadeEffect::executeEffect(unsigned long millis)
     decrementEffectCounter();
 }
 
-void FadeEffect::stop(bool turnOff)
+void FadeEffect::stop()
 {
-    LightEffect::stop(turnOff);
-    if (turnOff)
+    LightEffect::stop();
+    if (turnOffAtStop_)
     {
         light_->off();
     }

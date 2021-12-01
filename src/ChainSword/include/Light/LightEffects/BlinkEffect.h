@@ -10,7 +10,7 @@ public:
 
     void start(unsigned long startMillis) override;
     void executeEffect(unsigned long millis) override;
-    void stop(bool turnOff) override;
+    void stop() override;
 
 private:
     bool blinkState_;

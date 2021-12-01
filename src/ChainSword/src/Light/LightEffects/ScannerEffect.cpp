@@ -28,10 +28,10 @@ void ScannerEffect::executeEffect(unsigned long millis)
     previousEffectMillis_ = millis;
 }
 
-void ScannerEffect::stop(bool turnOff)
+void ScannerEffect::stop()
 {
-    LightEffect::stop(turnOff);
-    if (turnOff)
+    LightEffect::stop();
+    if (turnOffAtStop_)
     {
         light_->off();
     }

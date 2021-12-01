@@ -29,10 +29,10 @@ void ColorWipeEffect::executeEffect(unsigned long millis)
     }
 }
 
-void ColorWipeEffect::stop(bool turnOff)
+void ColorWipeEffect::stop()
 {
-    LightEffect::stop(turnOff);
-    if (turnOff)
+    LightEffect::stop();
+    if (turnOffAtStop_)
     {
         light_->off();
     }

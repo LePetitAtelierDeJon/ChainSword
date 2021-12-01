@@ -28,7 +28,7 @@ void LightEffect::execute(unsigned long millis)
         }
         else
         {
-            stop(turnOffAtStop_);
+            stop();
         }
     }
 }
@@ -46,7 +46,7 @@ void LightEffect::decrementEffectCounter()
     }
 }
 
-void LightEffect::stop(bool turnOff)
+void LightEffect::stop()
 {
     previousEffectMillis_ = 0;
     currentIndex_ = 0;

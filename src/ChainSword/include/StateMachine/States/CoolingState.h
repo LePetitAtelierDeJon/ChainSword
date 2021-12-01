@@ -29,7 +29,7 @@ public:
     {
         Serial.println("-- End Cooling Machine --");
         context->lightController()->StopEffect(COOLING_ANIMATION, millis);
-        context->lightController()->GetLight().on();
+        
     }
 
 private:

@@ -13,6 +13,7 @@ public:
     virtual void execute(T *context, unsigned long millis) = 0;
     virtual void enter(T *context, unsigned long millis) = 0;
     virtual void exit(T *context, unsigned long millis) = 0;
+    
     inline void addExitState(uint8_t transitionName, BaseState<T> *exitState)
     {
         exitStates_[transitionName] = exitState;
@@ -33,7 +34,6 @@ public:
     }
 
 private:
-    //std::map<String, BaseState<T> *> exitStates_;
     BaseState<T>*  exitStates_[10];
     StateMachine<T> *stateMachine_;
 };

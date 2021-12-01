@@ -21,13 +21,14 @@ void BlinkEffect::executeEffect(unsigned long millis)
     previousEffectMillis_ = millis;
 }
 
-void BlinkEffect::stop(bool turnOff)
+void BlinkEffect::stop()
 {
-    LightEffect::stop(turnOff);
-    if (turnOff)
+    LightEffect::stop();
+    if (turnOffAtStop_)
     {
         light_->off();
-    } else
+    }
+    else
     {
         light_->changeColor(effectColor_);
     }

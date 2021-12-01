@@ -11,7 +11,7 @@ public:
     void setup(uint8_t effectCounter, unsigned long effectFrequency, bool turnOffAtStop) override;
     void start(unsigned long startMillis) override;
     void executeEffect(unsigned long millis) override;
-    void stop(bool turnOff) override;
+    void stop() override;
     void setEffectSize(uint8_t effectSize);
 
 private:

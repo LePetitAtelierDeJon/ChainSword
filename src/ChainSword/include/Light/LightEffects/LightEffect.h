@@ -13,7 +13,7 @@ public:
     virtual void executeEffect(unsigned long millis) = 0;
 
     virtual void start(unsigned long startMillis);
-    virtual void stop(bool turnOff);
+    virtual void stop();
     virtual void setup(uint8_t effectCounter, unsigned long effectFrequency, bool turnOffAtStop);
 
     void execute(unsigned long millis);

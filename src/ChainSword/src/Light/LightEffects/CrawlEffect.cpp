@@ -26,9 +26,9 @@ void CrawlEffect::executeEffect(unsigned long millis)
     previousEffectMillis_ = millis;
 }
 
-void CrawlEffect::stop(bool turnOff)
+void CrawlEffect::stop()
 {
-    LightEffect::stop(turnOff);
+    LightEffect::stop();
     light_->on();
 }
 

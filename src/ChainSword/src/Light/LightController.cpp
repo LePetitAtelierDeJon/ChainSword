@@ -21,7 +21,7 @@ void LightController::SetEffect(uint8_t effectIndex, unsigned long millis)
 
 void LightController::StopEffect(uint8_t effectIndex, unsigned long millis)
 {
-    lightEffects_[effectIndex]->stop(millis);
+    lightEffects_[effectIndex]->stop();
     activeLightEffect_ = -1;
 }
 

@@ -3,34 +3,18 @@
 
 #include <Arduino.h>
 #include "StateMachine/BaseState.h"
-#include "StateMachine/States/TransitionIndex.h"
-#include "ChainSword.h"
+
+// forward declaration
+class ChainSword;
 
 class CoolingState : public BaseState<ChainSword>
 {
 public:
-    void execute(ChainSword *context, unsigned long millis)
-    {
-        context->lightController()->execute(millis);
-        if(millis - startMillis >= 3000)
-        {
-            switchState(COOLED_TRANSITION, millis);
-        }
-    }
+    void execute(ChainSword *context, unsigned long millis);
 
-    void enter(ChainSword *context, unsigned long millis)
-    {
-        Serial.println("-- Start Cooling Machine --");       
-        context->lightController()->SetEffect(COOLING_ANIMATION, millis);  
-        startMillis = millis;
-    }
+    void enter(ChainSword *context, unsigned long millis);
 
-    void exit(ChainSword *context, unsigned long millis)
-    {
-        Serial.println("-- End Cooling Machine --");
-        context->lightController()->StopEffect(COOLING_ANIMATION, millis);
-        
-    }
+    void exit(ChainSword *context, unsigned long millis);
 
 private:
     unsigned long startMillis;

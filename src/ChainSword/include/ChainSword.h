@@ -1,7 +1,6 @@
 #ifndef CHAINSWORD_H_
 #define CHAINSWORD_H_
 
-#include "Light/LightController.h"
 #include "StateMachine/StateMachine.h"
 
 #include "Light/LightController.h"
@@ -11,88 +10,102 @@
 #include "Light/LightEffects/CrawlEffect.h"
 #include "Light/LightEffects/FadeEffect.h"
 
+#include "StateMachine/States/TransitionIndex.h"
+
 #define STARTUP_ANIMATION 0
 #define IDLE_ANIMATION 1
 #define RUNNING_ANIMATION 2
 #define OVERHEAT_ANIMATION 3
 #define COOLING_ANIMATION 4
 
+// // Forward declaration of states
+class CoolingState;
+class FullPowerState;
+class IdleState;
+class RunningState;
+class StartState;
+
+/**
+ * @brief Represent the chainsword itself. Handles the lights effect, the state machine and the motor activation.
+ *
+ */
 class ChainSword
 {
 public:
+    ChainSword();
+
+public:
+    /**
+     * @brief Is the trigger pulled or not?
+     *
+     * @return true if the trigger is pulled.
+     * @return false if the trigger is released.
+     */
     inline bool isTriggerOn() { return isTriggerOn_; }
-    inline void toggleTrigger()
+
+    /**
+     * @brief toggle the state of the trigger.
+     *
+     */
+    void toggleTrigger(unsigned long millis);
+
+    /**
+     * @brief Set the Light Controller object, it controls the light and the light effects.
+     *
+     * @param lightController pointer to the lightController.
+     */
+    inline void setLightController(LightController *lightController) { lightController_ = lightController; }
+
+    /**
+     * @brief Get the lightController object.
+     *
+     * @return LightController*
+     */
+    inline LightController *lightController() const
     {
-        isTriggerOn_ = !isTriggerOn_;
+        return lightController_;
     }
 
-    inline void setTriggerOn() { isTriggerOn_ = true; }
-    inline void setTriggerOff() { isTriggerOn_ = false; }
-
-    inline void setLightController(LightController *lightController) { lightController_ = lightController; }
-    inline LightController *lightController() const {         
-        return lightController_; 
-        }
-
+    /**
+     * @brief Start the motor of the chainsword.
+     *
+     */
     inline void startMotor()
     {
         digitalWrite(motorPin_, HIGH);
     }
 
+    /**
+     * @brief Stop the motor of the chainsword.
+     *
+     */
     inline void stopMotor()
     {
         digitalWrite(motorPin_, LOW);
     }
 
+    /**
+     * @brief Set the motor pin.
+     *
+     * @param motorPin pin used by the motor.
+     */
     inline void setMotorPin(uint8_t motorPin)
     {
         motorPin_ = motorPin;
     }
 
-    inline void setStateMachine(StateMachine<ChainSword> *stateMachine)
-    {
-        stateMachine_ = stateMachine;
-        stateMachine_->setOwner(this);
-    }
+    void execute(unsigned long millis) const;
 
-    void init()
-    {
-        Serial.println("+++ Setup Light Effects +++");
-        // Start animation
-        wipe_.setup(1, 30, false);        
-        wipe_.setTargetColor(baseBlue);
-        lightController_->AddLightEffect(STARTUP_ANIMATION, &wipe_);
-
-        // Blade heating animation
-        fade_.setup(20, 100, false);
-        fade_.setTargetColor(red);
-        fade_.setEffectColor(baseBlue);
-        lightController_->AddLightEffect(RUNNING_ANIMATION, &fade_);
-
-        // Overheat animation
-        crawl_.setup(-1, 8, false);
-        crawl_.setEffectSize(10);
-        crawl_.setTargetColor(red);
-        crawl_.setEffectColor(overheatBaseColor);
-        lightController_->AddLightEffect(OVERHEAT_ANIMATION, &crawl_);
-
-        // Cooling animation
-        blink_.setup(-1, 150, false);
-        blink_.setTargetColor(red);
-        blink_.setEffectColor(baseBlue);
-        lightController_->AddLightEffect(COOLING_ANIMATION, &blink_);
-
-        // Idle animation
-        scanner_.setup(1, 50, false);
-        scanner_.setEffectSize(3);
-        scanner_.setEffectColor(baseBlue);
-        scanner_.setTargetColor(accentuatedBlue);  
-        lightController_->AddLightEffect(IDLE_ANIMATION, &scanner_);
-    }
+    void init();
 
 private:
     bool isTriggerOn_;
     LightController *lightController_;
+
+    /**
+     * @brief The state machine used for handling the different state of the chainsword.
+     *
+     */
     StateMachine<ChainSword> *stateMachine_;
     unsigned short heatLength_;
     unsigned short currentHeatLength_;
@@ -104,10 +117,18 @@ private:
     CrawlEffect crawl_;
     FadeEffect fade_;
 
+    StartState *startState;
+    IdleState *idleState;
+    RunningState *runningState;
+    FullPowerState *fullPowerState;
+    CoolingState *coolingState;
+
     Color baseBlue = Color(0, 10, 20);
     Color accentuatedBlue = Color(0, 20, 40);
     Color red = Color(20, 0, 0);
     Color overheatBaseColor = Color(10, 10, 0);
+    Color coolingColor = Color(0, 20, 10);
+    Color coolingColor2 = Color(10, 20, 0);
 };
 
 #endif // !CHAINSWORD_H_

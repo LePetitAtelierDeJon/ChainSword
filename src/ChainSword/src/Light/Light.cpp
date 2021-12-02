@@ -1,17 +1,12 @@
 #include "Light/Light.h"
 
-/**
- * Light constructor
- * @param strip The led strip used.
- * @param pixelCount The number of pixel needed for the light.
- * @param firstPixelIndex The index of the first pixel.
- * @param updateFrequency The update frequency of the light.
- * @param lightColor The light Color
- */
-Light::Light(Adafruit_NeoPixel *strip, uint8_t pixelCount, uint8_t firstPixelIndex, Color lightColor) : strip_(strip),
-                                                                                                                              pixelCount_(pixelCount),
-                                                                                                                              firstPixelIndex_(firstPixelIndex),
-                                                                                                                              lightColor_(lightColor)
+Light::Light(Adafruit_NeoPixel *strip,
+             uint8_t pixelCount,
+             uint8_t firstPixelIndex,
+             Color lightColor) : strip_(strip),
+                                 pixelCount_(pixelCount),
+                                 firstPixelIndex_(firstPixelIndex),
+                                 lightColor_(lightColor)
 {
 }
 
@@ -19,15 +14,8 @@ Light::Light() : strip_(nullptr)
 {
 }
 
-/**
- * Change the color for the light.
- * @param red Red component of the color.
- * @param green Green component of the color.
- * @param blue Blue component of the color.
- */
 void Light::changeColor(int red, int green, int blue)
 {
-    // uint32_t color = strip_.Color(red, green, blue);
     Color color = Color(red, green, blue);
     changeColor(color);
 }
@@ -35,46 +23,42 @@ void Light::changeColor(int red, int green, int blue)
 void Light::changeColor(Color color)
 {
     lightColor_ = color;
-    strip_->fill(strip_->Color((uint8_t)lightColor_.red, (uint8_t)lightColor_.green, (uint8_t)lightColor_.blue), firstPixelIndex_, pixelCount_);
+    uint32_t colorInt = strip_->Color((uint8_t)lightColor_.red,
+                               (uint8_t)lightColor_.green,
+                               (uint8_t)lightColor_.blue);
+    strip_->fill(colorInt, firstPixelIndex_, pixelCount_);
     strip_->show();
 }
 
-/**
- * Hey, who turned out the lights?
- */
 void Light::off()
 {
     strip_->fill(0, firstPixelIndex_, pixelCount_);
     strip_->show();
 }
 
-/**
- * Turn on the lights.
- */
 void Light::on()
 {
-    strip_->fill(strip_->Color((uint8_t)lightColor_.red, (uint8_t)lightColor_.green, (uint8_t)lightColor_.blue), firstPixelIndex_, pixelCount_);
+    uint32_t colorInt = strip_->Color((uint8_t)lightColor_.red,
+                               (uint8_t)lightColor_.green,
+                               (uint8_t)lightColor_.blue);
+    strip_->fill(colorInt, firstPixelIndex_, pixelCount_);
     strip_->show();
 }
 
-/**
- * Turn on the lights.
- */
-
 void Light::setPixelColor(uint8_t pixelIndex)
 {
-    strip_->setPixelColor(pixelIndex, strip_->Color((uint8_t)lightColor_.red, (uint8_t)lightColor_.green, (uint8_t)lightColor_.blue));
+    uint32_t colorInt = strip_->Color((uint8_t)lightColor_.red,
+                               (uint8_t)lightColor_.green,
+                               (uint8_t)lightColor_.blue);
+    strip_->setPixelColor(pixelIndex, colorInt);
     strip_->show();
 }
 
 void Light::setPixelColor(uint8_t pixelIndex, Color color)
 {
-    strip_->setPixelColor(pixelIndex, strip_->Color((uint8_t)color.red, (uint8_t)color.green, (uint8_t)color.blue));
-    strip_->show();
-}
-
-void Light::setPixelColor(uint8_t pixelIndex, uint32_t color)
-{
-    strip_->setPixelColor(pixelIndex, color);
+    uint32_t colorInt = strip_->Color((uint8_t)color.red,
+                               (uint8_t)color.green,
+                               (uint8_t)color.blue);
+    strip_->setPixelColor(pixelIndex, colorInt);
     strip_->show();
 }

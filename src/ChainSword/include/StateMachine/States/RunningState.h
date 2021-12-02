@@ -3,43 +3,18 @@
 
 #include <Arduino.h>
 #include "StateMachine/BaseState.h"
-#include "ChainSword.h"
-#include "Light/Color.h"
-#include "StateMachine/States/TransitionIndex.h"
+
+// forward declaration
+class ChainSword;
 
 class RunningState : public BaseState<ChainSword>
 {
 public:
-    void execute(ChainSword *context, unsigned long millis)
-    {
-        context->lightController()->execute(millis);
-        if (context->lightController()->isEffectStopped(RUNNING_ANIMATION))
-        {
-            if (!transitionOver)
-            {
-                previousMillis = millis;
-                transitionOver = true;
-            }
-            else if (millis - previousMillis > 2000)
-            {
-                switchState(OVERHEAT_TRANSITION, millis);
-            }
-        }
-    }
+    void execute(ChainSword *context, unsigned long millis);
 
-    void enter(ChainSword *context, unsigned long millis)
-    {
-        //Serial.println("Enter Running");
+    void enter(ChainSword *context, unsigned long millis);
 
-        context->lightController()->SetEffect(RUNNING_ANIMATION, millis);
-        transitionOver = false;
-    }
-
-    void exit(ChainSword *context, unsigned long millis)
-    {
-       // Serial.println("exit running state");
-        context->stopMotor();
-    }
+    void exit(ChainSword *context, unsigned long millis);
 
 private:
     unsigned long previousMillis = 0;

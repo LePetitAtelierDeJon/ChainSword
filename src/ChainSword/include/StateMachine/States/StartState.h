@@ -6,27 +6,17 @@
 #include "StateMachine/States/TransitionIndex.h"
 #include "ChainSword.h"
 
+// forward declaration
+class ChainSword;
+
 class StartState : public BaseState<ChainSword>
 {
 public:
-    void execute(ChainSword *context, unsigned long millis)
-    {
-        context->lightController()->execute(millis);
-        if(context->lightController()->isEffectStopped(STARTUP_ANIMATION))
-        {
-            switchState(IDLE_TRANSITION, millis);
-        }
-    }
+    void execute(ChainSword *context, unsigned long millis);
 
-    void enter(ChainSword *context, unsigned long millis)
-    {        
-        Serial.println("-- Start Chainsword Initiaisation --");
-        context->lightController()->SetEffect(STARTUP_ANIMATION, millis);
-    }
+    void enter(ChainSword *context, unsigned long millis);
 
-    void exit(ChainSword *context, unsigned long millis)
-    {
-        Serial.println("-- Chainsword Initialization Over --");
-    }
+    void exit(ChainSword *context, unsigned long millis);
+
 };
 #endif // !STARTSTATE_H_

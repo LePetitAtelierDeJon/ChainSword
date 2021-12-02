@@ -1,14 +1,13 @@
-#ifndef IDLESTATE_H_
-#define IDLESTATE_H_
+#ifndef FULLPOWERSTATE_H_
+#define FULLPOWERSTATE_H_
 
 #include <Arduino.h>
 #include "StateMachine/BaseState.h"
 
-
 // forward declaration
 class ChainSword;
 
-class IdleState : public BaseState<ChainSword>
+class FullPowerState : public BaseState<ChainSword>
 {
 public:
     void execute(ChainSword *context, unsigned long millis);
@@ -17,9 +16,5 @@ public:
 
     void exit(ChainSword *context, unsigned long millis);
 
-
-private:
-    unsigned long previousMillis = 0;
-    bool isStarting = true;
 };
-#endif // !IDLESTATE_H_
+#endif // !FULLPOWERSTATE_H_

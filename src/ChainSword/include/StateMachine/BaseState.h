@@ -1,6 +1,8 @@
 #ifndef BASESTATE_H_
 #define BASESTATE_H_
 
+#include <Arduino.h>
+
 template <class T>
 class StateMachine;
 

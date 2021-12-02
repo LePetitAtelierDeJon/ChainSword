@@ -8,18 +8,16 @@ class ScannerEffect : public LightEffect
 public:
     virtual ~ScannerEffect() {}
 
-    void setup(uint8_t effectCounter, unsigned long effectFrequency, bool turnOffAtStop = true);
-    void start(unsigned long startMillis);
-    void executeEffect(unsigned long millis);
-    bool isStopped() const;
-    void stop(bool turnOff);
+    void setup(uint8_t effectCounter, unsigned long effectFrequency, bool turnOffAtStop) override;
+    void start(unsigned long startMillis) override;
+    void executeEffect(unsigned long millis) override;
+    void stop() override;
     void setEffectSize(uint8_t effectSize);
 
 private:
    int8_t currentIndex_; 
    int8_t effectDirection_;
    uint8_t effectSize_;
-   uint8_t fadeSize_;
    Color otherColor_;
 };
 

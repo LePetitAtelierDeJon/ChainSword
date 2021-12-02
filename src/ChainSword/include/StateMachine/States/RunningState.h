@@ -1,5 +1,5 @@
-#ifndef IDLESTATE_H_
-#define IDLESTATE_H_
+#ifndef RUNNINGSTATE_H_
+#define RUNNINGSTATE_H_
 
 #include <Arduino.h>
 #include "StateMachine/BaseState.h"
@@ -7,7 +7,7 @@
 // forward declaration
 class ChainSword;
 
-class IdleState : public BaseState<ChainSword>
+class RunningState : public BaseState<ChainSword>
 {
 public:
     void execute(ChainSword *context, unsigned long millis);
@@ -16,9 +16,8 @@ public:
 
     void exit(ChainSword *context, unsigned long millis);
 
-
 private:
     unsigned long previousMillis = 0;
-    bool isStarting = true;
+    bool transitionOver = false;
 };
-#endif // !IDLESTATE_H_
+#endif // !RUNNINGSTATE_H_

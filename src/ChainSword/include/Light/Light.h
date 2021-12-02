@@ -7,86 +7,139 @@
 #include "Light/Color.h"
 
 /**
- * Enumeration for the different state of a light.
+ * @brief Enumeration for the different state of a light.
+ *
  */
 enum class LightState
 {
-	Initialization,
-	Wipe,
-	Blink,
-	Fade,
-	FadeTo,
-	Crawl,
-	Scanner,
-	Idle,
-	MaxState
+    Initialization,
+    Wipe,
+    Blink,
+    Fade,
+    FadeTo,
+    Crawl,
+    Scanner,
+    Idle,
+    MaxState
 };
 
 /**
- * Representation of a light, made from several pixel from neo pixel strip.
+ * @brief Representation of a light, made from several pixel from neo pixel strip.
+ *
  */
 class Light
 {
 public:
-	Light();
+    /**
+     * @brief Construct a new Light object
+     *
+     */
+    Light();
 
-	/**
-	 * Light constructor
-	 * @param strip The led strip used.
-	 * @param pixelCount The number of pixel needed for the light.
-	 * @param firstPixelIndex The index of the first pixel.
-	 * @param updateFrequency The update frequency of the light.
-	 * @param lightColor The light Color
-	 */
-	Light(Adafruit_NeoPixel *strip, uint8_t pixelCount, uint8_t firstPixelIndex, long updateFrequency, Color lightColor);
+    /**
+     * @brief Construct a new Light object
+     *
+     * @param strip The led strip used.
+     * @param pixelCount The number of pixel needed for the light.
+     * @param firstPixelIndex The index of the first pixel.
+     * @param lightColor The light Color
+     */
+    Light(Adafruit_NeoPixel *strip, uint8_t pixelCount, uint8_t firstPixelIndex, Color lightColor);
 
-	/**
-	 * Set a new color for the light.
-	 * @param red Red component of the color.
-	 * @param green Green component of the color.
-	 * @param blue Blue component of the color.
-	 */
-	void changeColor(uint8_t red, uint8_t green, uint8_t blue);
+    /**
+     * @brief Set a new color for the light.
+     *
+     * @param red Red component of the color.
+     * @param green Green component of the color.
+     * @param blue Blue component of the color.
+     */
+    void changeColor(int red, int green, int blue);
 
-	/**
-	 * Set a new color for the light.
-	 * @param color new color.	
-	 */
-	void changeColor(Color color);
+    /**
+     * @brief Set a new color for the light.
+     *
+     * @param color new color.
+     */
+    void changeColor(Color color);
 
-	void changeTargetColor(uint8_t red, uint8_t green, uint8_t blue);
-	void changeTargetColor(Color color);
+    /**
+     * @brief Hey, who turned out the lights?
+     *
+     */
+    void off();
 
-	/**
-	* Hey, who turned out the lights?
-	*/
-	void off();
+    /**
+     * @brief Turn on the lights.
+     *
+     */
+    void on();
 
-	/**
-	* Turn on the lights.
-	*/
-	void on();
+    /**
+     * @brief get the index of the first pixel for the light. Useful when several light object shares the same strip.
+     *
+     * @return uint8_t index of the first pixel.
+     */
+    inline uint8_t firstPixelIndex() const
+    {
+        return firstPixelIndex_;
+    }
 
-	void turnTargetOn();
+    /**
+     * @brief Get the light's number of pixel. Useful when several light object shares the same strip.
+     *
+     * @return uint8_t
+     */
+    inline uint8_t pixelCount() const
+    {
+        return pixelCount_;
+    }
 
-	inline uint8_t firstPixelIndex() const { return firstPixelIndex_; }
-	inline uint8_t pixelCount() const { return pixelCount_; }
-	void setPixelColor(uint8_t pixelIndex);
-	void setPixelTargetColor(uint8_t pixelIndex);
-	void setPixelColor(uint8_t pixelIndex, Color color);
-	void setPixelColor(uint8_t pixelIndex, uint32_t color);
+    /**
+     * @brief Set, for the pixel at pixelIndex, the current color of the light.
+     *
+     * @param pixelIndex Index of the pixel.
+     */
+    void setPixelColor(uint8_t pixelIndex);
+
+    /**
+     * @brief Set, for the pixel at pixelIndex, the color parameter as Color struct.
+     *
+     * @param pixelIndex Index of the pixel.
+     * @param color Color to set to the pixel.
+     */
+    void setPixelColor(uint8_t pixelIndex, Color color);
+
+    /**
+     * @brief Get the current color of the light.
+     *
+     * @return Color of the light.
+     */
+    inline Color color() const { return lightColor_; }
 
 private:
-	Adafruit_NeoPixel *strip_;
+    /**
+     * @brief NeoPixel strip led.
+     *
+     */
+    Adafruit_NeoPixel *strip_;
 
-	uint8_t pixelCount_;
-	uint8_t firstPixelIndex_;
+    /**
+     * @brief Number of pixel on the light.
+     *
+     */
+    uint8_t pixelCount_;
 
-	// Light time related properties.
-	unsigned long updateFrequency_;
+    /**
+     * @brief Index of the first pixel on the light.
+     *
+     */
+    uint8_t firstPixelIndex_;
 
-	Color lightColor_;
-	Color targetColor_;
+    /**
+     * @brief Current color of the light.
+     *
+     */
+    Color lightColor_;
 };
 
 #endif // !LIGHT_HPP_

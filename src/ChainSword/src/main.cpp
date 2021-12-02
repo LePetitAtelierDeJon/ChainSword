@@ -1,67 +1,93 @@
 #include <Arduino.h>
 #include <Adafruit_NeoPixel.h>
 
-#include "StateMachine/StateMachine.h"
-#include "StateMachine/States/StartState.h"
 #include "ChainSword.h"
 #include "Light/Light.h"
 #include "Light/LightController.h"
-#include "Light/LightEffects/BlinkEffect.h"
-#include "Light/LightEffects/ColorWipeEffect.h"
-#include "Light/LightEffects/ScannerEffect.h"
-#include "Light/LightEffects/CrawlEffect.h"
 
 #define LED_PIN 6
+#define MOTOR_PIN 4
+#define TRIGGER_PIN 2
 #define LED_COUNT 32
 
+/**
+ * @brief RGB Strop led.
+ * 
+ */
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
-StateMachine<ChainSword> stateMachine;
-StartState startState;
+
+/**
+ * @brief The light inside the blade.
+ * 
+ */
+Light bladeLight(&strip, LED_COUNT, 0, Color(0,0,0));
+
+/**
+ * @brief The light controller for the light bladeLight.
+ *  
+ */
+LightController controller(bladeLight);
+
+/**
+ * @brief The chainsword object.
+ * 
+ */
 ChainSword chainSword;
 
-const Color primaryColor = Color(20, 20, 0);
-const Color secondaryColor = Color(0, 20, 20);
-Light bladeLight(&strip, 22, 0, 60, primaryColor);
-Light bladeLight2(&strip, 10, 22, 60, primaryColor);
-LightController controller(bladeLight);
-LightController controller2(bladeLight2);
-BlinkEffect blink;
-ColorWipeEffect wipe;
-ScannerEffect scanner;
-CrawlEffect crawl;
+// variables for antiGhosting on the trigger.
+unsigned long previousDelay = 0;
+const unsigned long antiGhostingDelay = 100;
 
+void trigger();
+
+/**
+ * @brief Arduino setup callback. Init the chainsword components.
+ * 
+ */
 void setup()
 {
-  Serial.begin(9600);
-  // stateMachine.setOwner(&chainSword);
+    Serial.begin(9600);
+    Serial.println("+++ Machine Spirit Awaken +++");
 
-  stateMachine.changeState(&startState);
-  bladeLight.changeTargetColor(secondaryColor);
-  bladeLight2.changeTargetColor(secondaryColor);
-  strip.begin();
-  strip.show();
-  blink.init(&bladeLight);
-  blink.setup(4, 500);
-  controller.AddLightEffect("Blink", &blink);
-  wipe.init(&bladeLight2);
-  wipe.setup(4, 50, false);
-  controller2.AddLightEffect("Wipe", &wipe);
-  scanner.init(&bladeLight);
-  scanner.setup(2, 20, false);
-  scanner.setEffectSize(3);
-  controller.AddLightEffect("Scanner", &scanner);
-  // crawl.init(&bladeLight);
-  // crawl.setup(-1, 20);
-  // crawl.setEffectSize(5);
-  // controller.AddLightEffect("Crawl", &crawl);
-//   controller.SetEffect("Scanner", millis());
-//   controller2.SetEffect("Wipe", millis());
-bladeLight.changeColor(primaryColor);
-bladeLight2.changeColor(secondaryColor);
+    pinMode(TRIGGER_PIN, INPUT_PULLUP);
+    pinMode(MOTOR_PIN, OUTPUT);
+    // Attach the interrupt for the trigger action.
+    // The interrupt call the trigger method.
+    attachInterrupt(digitalPinToInterrupt(TRIGGER_PIN), trigger, CHANGE);
+
+    Serial.println("+++ Chainsword Initialisation +++");
+    chainSword.setLightController(&controller);
+    chainSword.setMotorPin(MOTOR_PIN);
+
+    chainSword.init();
+
+    strip.begin();
+    strip.show();
+
+    Serial.println("+++ End of Initialisation +++");
 }
 
+/**
+ * @brief Arduino loop callback. execute the statemachine execute method.
+ * 
+ */
 void loop()
 {
-//   controller.execute(millis());
-//   controller2.execute(millis());
+    unsigned long currentMillis = millis();
+    chainSword.execute(currentMillis);
+}
+
+/**
+ * @brief Method called when the trigger is pulled or released.
+ * Anti ghosting delay is provided to avoid ghost calls.
+ * 
+ */
+void trigger()
+{
+    unsigned long currentMillis = millis();
+    if ((currentMillis - previousDelay) > antiGhostingDelay)
+    {
+        previousDelay = currentMillis;
+        chainSword.toggleTrigger(currentMillis);        
+    }
 }

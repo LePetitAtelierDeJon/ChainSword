@@ -1,19 +1,20 @@
-#ifndef COLORWIPEEFFECT_H_
-#define COLORWIPEEFFECT_H_
+#ifndef FADEEFFECT_H_
+#define FADEEFFECT_H_
 
 #include "LightEffect.h"
 
-class ColorWipeEffect : public LightEffect
+class FadeEffect : public LightEffect
 {
 public:
-    virtual ~ColorWipeEffect() {}
+    virtual ~FadeEffect() {}
     
     void start(unsigned long startMillis) override;
     void executeEffect(unsigned long millis) override;
     void stop() override;
 
 private:
-   uint8_t currentIndex_; 
+    Color currentColor_;
+    Color addColor_;
 };
 
-#endif // !COLORWIPEEFFECT_H_
+#endif // !FADEEFFECT_H_

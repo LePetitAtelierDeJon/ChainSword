@@ -2,38 +2,34 @@
 
 void BlinkEffect::start(unsigned long startMillis)
 {
-    previousEffectMillis_ = startMillis;
+    LightEffect::start(startMillis);
+    light_->changeColor(effectColor_);
 }
 
 void BlinkEffect::executeEffect(unsigned long millis)
 {
     if (blinkState_)
     {
-        light_->turnTargetOn();
+        light_->changeColor(targetColor_);
     }
     else
     {
-        light_->on();
+        light_->changeColor(effectColor_);
         decrementEffectCounter();
     }
     blinkState_ = !blinkState_;
     previousEffectMillis_ = millis;
 }
 
-void BlinkEffect::stop(bool turnOff)
+void BlinkEffect::stop()
 {
-    if (turnOff)
+    LightEffect::stop();
+    if (turnOffAtStop_)
     {
         light_->off();
-    } else
-    {
-        light_->on();
     }
-
-    previousEffectMillis_ = 0;
-}
-
-bool BlinkEffect::isStopped() const
-{
-    return false;
+    else
+    {
+        light_->changeColor(effectColor_);
+    }
 }

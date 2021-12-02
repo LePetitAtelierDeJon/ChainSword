@@ -10,58 +10,51 @@ public:
     virtual ~LightEffect() {}
     LightEffect() {}
 
-    virtual void init(Light *light)
-    {
-        light_ = light;
-    }
-
-    virtual void setup(uint8_t effectCounter, unsigned long effectFrequency, bool turnOffAtStop = true)
-    {
-        effectCounter_ = effectCounter;
-        effectFrequency_ = effectFrequency;
-        currentIndex_ = 0;
-        turnOffAtStop_ = turnOffAtStop;
-    }
-
-    virtual void start(unsigned long startMillis) = 0;
     virtual void executeEffect(unsigned long millis) = 0;
 
-    void execute(unsigned long millis)
+    virtual void start(unsigned long startMillis);
+    virtual void stop();
+    virtual void setup(uint8_t effectCounter, unsigned long effectFrequency, bool turnOffAtStop);
+
+    void execute(unsigned long millis);
+    void decrementEffectCounter();
+
+    inline virtual void setLight(Light &light)
     {
-        if (canExecute(millis))
-        {
-            if (effectCounter_ > 0 || effectCounter_ <= -1)
-            {
-                executeEffect(millis);
-                previousEffectMillis_ = millis;
-            }
-            else
-            {
-                stop(turnOffAtStop_);
-            }
-        }
+        light_ = &light;
     }
 
-    virtual bool isStopped() const = 0;
-    virtual void stop(bool turnOff) = 0;
-
-    inline void decrementEffectCounter()
+    inline void setEffectColor(Color color)
     {
-        if (effectCounter_ > 0)
-        {
-            --effectCounter_;
-        }
+        effectColor_ = color;
     }
 
-    inline bool canExecute(unsigned long millis) { return (millis - previousEffectMillis_) >= effectFrequency_; }
+    inline void setTargetColor(Color color)
+    {
+        targetColor_ = color;
+    }
+
+    inline bool canExecute(unsigned long millis) const
+    {
+        return (millis - previousEffectMillis_) >= effectFrequency_;
+    }
+
+    inline bool isStopped() const
+    {
+        return isStopped_;
+    };
 
 protected:
     Light *light_;
     uint8_t effectCounter_;
+    uint8_t currentEffectCounter_;
     unsigned long effectFrequency_;
     unsigned long previousEffectMillis_;
     uint8_t currentIndex_;
     bool turnOffAtStop_;
+    bool isStopped_ = false;
+    Color effectColor_;
+    Color targetColor_;
 };
 
 #endif // !LIGHTEFFECT_H_

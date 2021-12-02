@@ -8,13 +8,11 @@ class CrawlEffect : public LightEffect
 public:
     virtual ~CrawlEffect() {}
 
-    void setup(uint8_t effectCounter, unsigned long effectFrequency);
-    void start(unsigned long startMillis);
-    void executeEffect(unsigned long millis);
-    bool isStopped() const;
-    void stop(bool turnOff);
+    void setup(uint8_t effectCounter, unsigned long effectFrequency, bool turnOffAtStop) override;
+    void start(unsigned long startMillis) override;
+    void executeEffect(unsigned long millis) override;
+    void stop() override;
     void setEffectSize(uint8_t effectSize);
-
 
 private:
    int8_t currentIndex_; 

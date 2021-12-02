@@ -6,7 +6,7 @@ void StartState::execute(ChainSword *context, unsigned long millis)
     context->lightController()->execute(millis);
     if (context->lightController()->isEffectStopped(STARTUP_ANIMATION))
     {
-        switchState(IDLE_TRANSITION, millis);
+        stateMachine_->makeTransition(IDLE_TRANSITION, millis);
     }
 }
 

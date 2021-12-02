@@ -4,7 +4,6 @@
 #include <Arduino.h>
 #include "StateMachine/BaseState.h"
 
-
 // forward declaration
 class ChainSword;
 

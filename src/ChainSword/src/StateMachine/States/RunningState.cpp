@@ -13,7 +13,7 @@ void RunningState::execute(ChainSword *context, unsigned long millis)
         }
         else if (millis - previousMillis > 2000)
         {
-            switchState(OVERHEAT_TRANSITION, millis);
+            stateMachine_->makeTransition(OVERHEAT_TRANSITION, millis);
         }
     }
 }

@@ -6,7 +6,7 @@ void CoolingState::execute(ChainSword *context, unsigned long millis)
     context->lightController()->execute(millis);
     if (millis - startMillis >= 3000)
     {
-        switchState(COOLED_TRANSITION, millis);
+        stateMachine_->makeTransition(COOLED_TRANSITION, millis);
     }
 }
 

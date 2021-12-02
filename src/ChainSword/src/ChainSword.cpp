@@ -16,7 +16,7 @@ ChainSword::ChainSword()
     coolingState = new CoolingState();
 
     stateMachine_ = new StateMachine<ChainSword>();
-    stateMachine_->setOwner(this);
+    stateMachine_->setContext(this);
 }
 
 void ChainSword::init()

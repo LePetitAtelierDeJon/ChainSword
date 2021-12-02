@@ -72,6 +72,11 @@ public:
 
 private:
     Light &light_;
+    /**
+     * @brief array of LightEffect.
+     * @todo Dynamically create the array.
+     * 
+     */
     LightEffect *lightEffects_[10];
     int8_t activeLightEffect_;
 };

@@ -13,6 +13,7 @@ void CoolingState::execute(ChainSword *context, unsigned long millis)
 void CoolingState::enter(ChainSword *context, unsigned long millis)
 {
     Serial.println("-- Start Chainsword Cooling --");
+    context->stopMotor();
     context->lightController()->SetEffect(COOLING_ANIMATION, millis);
     startMillis = millis;
 }

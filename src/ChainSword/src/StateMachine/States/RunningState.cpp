@@ -30,5 +30,4 @@ void RunningState::enter(ChainSword *context, unsigned long millis)
 void RunningState::exit(ChainSword *context, unsigned long millis)
 {
     Serial.println("-- End of nominal chainsword operation --");
-    context->stopMotor();
 }

@@ -7,18 +7,18 @@ The project is configured to use a A-Star 32U4 Micro microcontroller.
 
 The 3d models can be found [here](https://cults3d.com/fr/modèle-3d/jeu/space-wolves-chainsword).
 
-## Building the chainsword
+# Building the chainsword
 The following parameters explains how to build the chainsword. First you should gather all the needed parts :
 - The 3D Printed parts
 - The Hardware
 - The Electronics
 
-### Parts
+## Parts
 
-#### 3D Printed Parts
+### 3D Printed Parts
 To print the chainsword, I used the following parameters.
 
-##### PLA 0.2mm
+#### PLA 0.2mm
 - Intermediate_Structure.stl x3 
 - Bottom_Structure.stl x1
 - Top_Structure x1
@@ -34,7 +34,7 @@ To print the chainsword, I used the following parameters.
 - Blade_Cover_Head.stl x1
 - Tooth_Base.stl x75
 
-##### PLA 0.1mm
+#### PLA 0.1mm
 - Top_Structure_Gear_Rail.stl x1
 - Top_Structure_End.stl x1
 - Top_Gear_Wheel.stl x1
@@ -46,7 +46,7 @@ To print the chainsword, I used the following parameters.
 - Motor_Axis_Opening_Cover.stl x1
 - Base_Blade_Cover_Teeth_Opening_Cover.stl x1
 
-##### Phosphorescent PLA 0.1mm you could print these parts in normal PLA if you don't want to add leds in the blasde
+#### Phosphorescent PLA 0.1mm you could print these parts in normal PLA if you don't want to add leds in the blasde
 - Blade_Cover_Head_Rune_Front.stl x1
 - Blade_Cover_Head_Rune_Back.stl x1
 - Blade_Cover_Third_Section_Front.stl x1
@@ -56,7 +56,7 @@ To print the chainsword, I used the following parameters.
 - Blade_Cover_First_Section_Front.stl x1
 - Blade_Cover_First_Section_Back.stl x1
 
-##### Resin 0.05mm
+#### Resin 0.05mm
 - Display_Gear_Wheel.stl x1
 - Tooth_Basic_Top.stl x64
 - Tooth_V_Top.stl x1
@@ -69,10 +69,10 @@ To print the chainsword, I used the following parameters.
 - Tooth_R_Top.stl x1
 - Tooth_Y_Top.stl x1
 
-#### Hardware
+### Hardware
 You will also need the following hardware.
 
-##### Screws
+#### Screws
 - M2x8 x4
 - M2x12 x2
 - M2x16 Screw x2
@@ -84,15 +84,15 @@ You will also need the following hardware.
 - M3x30+ x1
 - 3x20 wood screw x12
 
-##### Nuts
+#### Nuts
 - M2 x2
 - M3 x55
 
-##### Threaded Insert for plastic
+#### Threaded Insert for plastic
 - M3x10x5 x9
 - M2x4x3.5 x6
 
-##### Other
+#### Other
 - Broom stick, around 120 cm, 25 mm diameter x1
 - 608-zz ABEC bearing x2
 - ~6x40mm spring x1
@@ -100,7 +100,7 @@ You will also need the following hardware.
 - Lubricant / Grease
 - Masking Tape
 
-#### Electronics
+### Electronics
 Finally the electronics part.
 
 - GearMotor DG01D x1
@@ -113,7 +113,7 @@ Finally the electronics part.
 - capacitor x1
 - Battery 7.4v
 
-### Tools
+## Tools
 - M3 Hex Screwdriver
 - M2 Hex Screwdriver
 - Phillips Screwdriver
@@ -126,9 +126,9 @@ Finally the electronics part.
 - Hot Glue Gun
 
 
-### Chainsword assembly
+## Chainsword assembly
 Lets start the assembly of the chainsword. Each step will presents the needed parts first then the sub-steps.
-#### Chain
+### Chain
 - Tooth_Base.stl x75
 - Tooth_Basic_Top.stl x64
 - Tooth_V_Top.stl x1
@@ -146,7 +146,7 @@ Lets start the assembly of the chainsword. Each step will presents the needed pa
 2. Clip the teeth with letters to form the text **VLKA FENRYKA** separed by one normal tooth.
 3. Clip the already formed chain and all the remaining teeth to form the final chain. Don't close it yetn keep one link open.
 
-#### Cross Guard
+### Cross Guard
 - Cross_Guard.stl x1
 - Trigger.stl x1
 - Trigger_Axis.stl x1
@@ -162,7 +162,7 @@ Lets start the assembly of the chainsword. Each step will presents the needed pa
 4. Fix the **Trigger** to the **Cross_Guard** with the **Trigger_Axis**.
 5. Put the **Sprint** between the **Trigger** and the **Cross_Guard**.
 
-#### Structure
+### Structure
 - Intermediate_Structure.stl x3
 - Bottom_Structure.stl x1
 - Top_Structure x1
@@ -179,7 +179,7 @@ Lets start the assembly of the chainsword. Each step will presents the needed pa
 4. Screw the **Broom_Holder** parts to the structure using **40 M3x16** and **40 M3 Nuts**.
 5. Insert the **Broom Stick** into the holes along the structure.
 
-#### Gears
+### Gears
 - GearMotor DG01D x1
 - 608-zz ABEC bearing x2
 - ~6x40mm spring x1
@@ -207,7 +207,7 @@ Lets start the assembly of the chainsword. Each step will presents the needed pa
 10. Adjust the **chain** tension by tightening or loosening the screw fixed on the **Top_Structure_Gear_Rail**.
 11. You can now test if the **chain** rotate correctly manually or by powering the **motor**.
 
-#### Handle & Guard
+### Handle & Guard
 - Structure
 - Guard.stl x1
 - Handle.stl x1
@@ -220,7 +220,7 @@ Lets start the assembly of the chainsword. Each step will presents the needed pa
 3. Put the **Handle** on the **broom stick** which exceeds from the structure, then screw it with **2 3x20 wood screw**.
 4. Put the **Guard** on the **broom stick** and into the hole of the **Cross_Guard** and screw it with **M3x20**.
 
-#### Blade Cover
+### Blade Cover
 - Base_Blade_Cover.stl x1
 - Blade_Cover_First_Section.stl x1
 - Blade_Cover_Second_Section.stl x1
@@ -247,10 +247,10 @@ Lets start the assembly of the chainsword. Each step will presents the needed pa
 4. Once the glue is dry, remove the **blade cover** from the **structure**.
 5. Prime and paint the **blade cover**.
 
-#### Electronics
+### Electronics
 [TODO]
 
-#### Final parts
+### Final parts
 - Cross_Guard_Hatch.stl x1
 - Display_Gear_Wheel.stl x1
 - Display_Gear_Wheel_Cover.stl x1

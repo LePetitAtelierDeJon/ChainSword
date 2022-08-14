@@ -1,4 +1,5 @@
 # ChainSword
+![Vlka Fenryka](./instruction_img/chainsword.jpg)
 
 This project provides the code for a functionnal, 3D printed, chainsword using a microcontroller, a dc motor & a neopixel strip led.
  
@@ -8,12 +9,9 @@ The project is configured to use a A-Star 32U4 Micro microcontroller.
 The 3d models can be found [here](https://cults3d.com/fr/modèle-3d/jeu/space-wolves-chainsword).
 
 # Building the chainsword
-The following parameters explains how to build the chainsword. First you should gather all the needed parts :
-- The 3D Printed parts
-- The Hardware
-- The Electronics
-
 ## Parts
+
+![Chainsword electronics schematics](./instruction_img/all_items.png)
 
 ### 3D Printed Parts
 To print the chainsword, I used the following parameters.
@@ -68,9 +66,10 @@ To print the chainsword, I used the following parameters.
 - Tooth_N_Top.stl x1
 - Tooth_R_Top.stl x1
 - Tooth_Y_Top.stl x1
+- Pommel x1
 
 ### Hardware
-You will also need the following hardware.
+You will also need the some hardware.
 
 #### Screws
 - M2x8 x4
@@ -92,7 +91,7 @@ You will also need the following hardware.
 - M3x10x5 x9
 - M2x4x3.5 x6
 
-#### Other
+### Other
 - Broom stick, around 120 cm, 25 mm diameter x1
 - 608-zz ABEC bearing x2
 - ~6x40mm spring x1
@@ -101,19 +100,16 @@ You will also need the following hardware.
 - Masking Tape
 
 ### Electronics
-Finally the electronics part.
-
 - GearMotor DG01D x1
 - microswitch SS-5GL x1
-- A-Star 32U4 Micro microcontroller x1
+- Pololu A-Star 32U4 Micro microcontroller x1
 - WS2812B Led Strip x1 (at least 18 Leds)
 - On/Off Switch x1
-- transistor x1
+- Type N Mosfet (i.e. IRF520) x1
 - diode x1
-- capacitor x1
-- Battery 7.4v
+- Battery 7.4v 500mah
 
-## Tools
+### Tools
 - M3 Hex Screwdriver
 - M2 Hex Screwdriver
 - Phillips Screwdriver
@@ -143,24 +139,27 @@ Lets start the assembly of the chainsword. Each step will presents the needed pa
 
 1. Glue each **Top** on each **Tooth_Base** with Cyanoacrylate Glue.
 2. Paint the teeth.
-2. Clip the teeth with letters to form the text **VLKA FENRYKA** separed by one normal tooth.
-3. Clip the already formed chain and all the remaining teeth to form the final chain. Don't close it yetn keep one link open.
+3. Clip the teeth with letters to form the text **VLKA FENRYKA** separed by one normal tooth. ![Vlka Fenryka](./instruction_img/chain.jpg)
+4. Clip the already formed chain and all the remaining teeth to form the final chain. Don't close it yet, keep one link open. ![Vlka Fenryka](./instruction_img/chain_2.jpg)
 
 ### Cross Guard
 - Cross_Guard.stl x1
 - Trigger.stl x1
 - Trigger_Axis.stl x1
 - microswitch SS-5GL x1
+- On/Off Switch x1
 - M2x4x3.5 Threaded Insert x4
 - M2x16 Screw x2
 - M2 Nut x2
 - ~7-20mm spring x1
 
-1. Use filler primer on the **Cross_Guard** and **Trigger** parts, sand them and finally paint them.
-2. Use a soldering iron to put the **inserts** on the appropriate holes on the **Cross_Guard** part.
-3. Screw the **microswitch** to the **Cross_Guard** with the **M2x16** Screws and the **M2 Nuts** (its easier to solder electric wire to the microswitch before fixing it).
-4. Fix the **Trigger** to the **Cross_Guard** with the **Trigger_Axis**.
-5. Put the **Sprint** between the **Trigger** and the **Cross_Guard**.
+1. Solder electrical wire to the **microswitch** and the **On/Off Switch**.
+2. Use filler primer on the **Cross_Guard** and **Trigger** parts, sand them and finally paint them.
+3. Use a soldering iron to put the **inserts** on the appropriate holes on the **Cross_Guard** part.
+4. Screw the **microswitch** to the **Cross_Guard** with the **M2x16** Screws and the **M2 Nuts**.
+5. Fix the **Trigger** to the **Cross_Guard** with the **Trigger_Axis**.
+6. Put the **Spring** between the **Trigger** and the **Cross_Guard**.
+7. Insert the **On/Off Switch** in the remaining location.
 
 ### Structure
 - Intermediate_Structure.stl x3
@@ -169,6 +168,7 @@ Lets start the assembly of the chainsword. Each step will presents the needed pa
 - Broom_Holder.stl x10
 - Cross_Guard.stl x1
 - Broom stick, around 120 cm, 25 mm diameter x1
+- WS2812B Led Strip x1 (at least 18 Leds)
 - M3x16 x40
 - M3x12 x10
 - M3 Nuts x50
@@ -176,8 +176,9 @@ Lets start the assembly of the chainsword. Each step will presents the needed pa
 1. Screw the **Cross_Guard** with the **Bottom_Structure** part using **2 M3x12** and **2 M3 Nuts**.
 2. Screw the **3 Intermediate_Structure** parts together and with the **Bottom_Structure** using **6 M3x12** and **6 M3 Nuts**.
 3. Screw the **Top_Structure** part with the result of the previous step using **2 M3x12** and **2 M3 Nuts**.
-4. Screw the **Broom_Holder** parts to the structure using **40 M3x16** and **40 M3 Nuts**.
-5. Insert the **Broom Stick** into the holes along the structure.
+4. Screw the **Broom_Holder** parts to the **structure** using **40 M3x16** and **40 M3 Nuts**.
+5. Insert the **Broom Stick** into the holes along the **structure**.
+6. Glue the **Led Strip** on the **structure** with the hot glue gun.
 
 ### Gears
 - GearMotor DG01D x1
@@ -206,6 +207,7 @@ Lets start the assembly of the chainsword. Each step will presents the needed pa
 9. Put the **chain** on the structure and close it by clipping the last link.
 10. Adjust the **chain** tension by tightening or loosening the screw fixed on the **Top_Structure_Gear_Rail**.
 11. You can now test if the **chain** rotate correctly manually or by powering the **motor**.
+![structure](./instruction_img/structure.jpg)
 
 ### Handle & Guard
 - Structure
@@ -237,18 +239,31 @@ Lets start the assembly of the chainsword. Each step will presents the needed pa
 - M2x4x3.5 insert x2
 - M3x10x5 insert x7
 
-1. For each section put the corresponding runes part, all front on the same side, and all back on the other side : 
+1. For each section, insert the corresponding runes part, all front on the same side, and all back on the other side : 
     - **Blade_Cover_First_Section** : **Blade_Cover_First_Section_Front** & **Blade_Cover_First_Section_Back**.
     - **Blade_Cover_Second_Section** : **Blade_Cover_Second_Section_Front** & **Blade_Cover_Second_Section_Back**.
     - **Blade_Cover_Third_Section** : **Blade_Cover_Third_Section_Front** & **Blade_Cover_Third_Section_Back**.
     - **Blade_Cover_Head** : **Blade_Cover_Head_Rune_Front** & **Blade_Cover_Head_Rune_Back**.
 2. Use a soldering iron to put the **M3x10x5 Inserts** and the **M2x4x3.5** on the appropriate holes on the **Base_Blade_Cover** part.
 3. Slide along the **blade structure**, in that order, the following part : **Base_Blade_Cover.stl**, **Blade_Cover_First_Section.stl**, **Blade_Cover_Second_Section.stl**, **Blade_Cover_Third_Section.stl** and **Blade_Cover_Head.stl**. Glue them togheter with plastic glue or cyanoacrylate. Take the oppotunity to glue the **runes**.
-4. Once the glue is dry, remove the **blade cover** from the **structure**.
-5. Prime and paint the **blade cover**.
+4. Once the glue is dry, remove the **blade cover** from the **structure**. ![blade cover](./instruction_img/blade_cover.jpg)
+5. Put masking tape over the **runes** then prime and paint the **blade cover**. Once the paint is dry, remove the masking tape. ![priming blade code](./instruction_img/priming_blade.jpg)
 
 ### Electronics
-[TODO]
+- GearMotor DG01D x1
+- microswitch SS-5GL x1
+- Pololu A-Star 32U4 Micro microcontroller x1
+- WS2812B Led Strip x1 (at least 18 Leds)
+- On/Off Switch x1
+- Type N Mosfet (i.e. IRF520) x1
+- diode x1
+- Battery 7.4v 500mah
+
+Use the following circuit diagram to make the electronics for the project.
+
+
+![Chainsword electronics schematics](./instruction_img/chainsword_schematics.png)
+![Chainsword electronics view](./instruction_img/circuit.jpg)
 
 ### Final parts
 - Cross_Guard_Hatch.stl x1
@@ -259,5 +274,18 @@ Lets start the assembly of the chainsword. Each step will presents the needed pa
 - M2x8 x4
 - M2x12 x2
 - M3x8 x7
+- Pommel x1
 
-1. 
+![Chainsword electronics view](./instruction_img/before_final_assembly.png)
+
+1. Prime and paint the remaining parts (**Cross_Guard_Hatch.stl**, **Display_Gear_Wheel.stl**, **Display_Gear_Wheel_Cover.stl**, **Motor_Axis_Opening_Cover.stl** and **Base_Blade_Cover_Teeth_Opening_Cover.stl**).
+2. Put the **blade cover** over the structure and screw it with the 7 **M3x8 screws**.
+3. Put the **Display_Gear_Wheel_Cover.stl** over the motor opening then put the the **Display_Gear_Wheel.stl** on the motor axis.
+4. Insert the **Motor_Axis_Opening_Cover.stl** into the **Base_Blade_Cover.stl** location.
+5. Screw the **Base_Blade_Cover_Teeth_Opening_Cover.stl** with the **2 M2x12 screws**.
+6. Put in place the **Cross_Guard_Hatch.stl** then secure it with **4 M2x8 screws**.
+7. Finally, glue the **Pommel** with the hot glue gun. 
+
+You now have a working chainsword. 
+
+Enjoy.

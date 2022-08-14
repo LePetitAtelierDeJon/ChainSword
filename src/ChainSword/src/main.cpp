@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <Adafruit_NeoPixel.h>
+#include <ezButton.h>
 
 #include "ChainSword.h"
 #include "Light/Light.h"
@@ -12,25 +13,25 @@
 
 /**
  * @brief RGB Strop led.
- * 
+ *
  */
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 /**
  * @brief The light inside the blade.
- * 
+ *
  */
-Light bladeLight(&strip, LED_COUNT, 0, Color(0,0,0));
+Light bladeLight(&strip, LED_COUNT, 0, Color(0, 0, 0));
 
 /**
  * @brief The light controller for the light bladeLight.
- *  
+ *
  */
 LightController controller(bladeLight);
 
 /**
  * @brief The chainsword object.
- * 
+ *
  */
 ChainSword chainSword;
 
@@ -38,22 +39,21 @@ ChainSword chainSword;
 unsigned long previousDelay = 0;
 const unsigned long antiGhostingDelay = 100;
 
+ezButton triggerButton(TRIGGER_PIN);
+
 void trigger();
 
 /**
  * @brief Arduino setup callback. Init the chainsword components.
- * 
+ *
  */
 void setup()
 {
     Serial.begin(9600);
     Serial.println("+++ Machine Spirit Awaken +++");
 
-    pinMode(TRIGGER_PIN, INPUT_PULLUP);
     pinMode(MOTOR_PIN, OUTPUT);
-    // Attach the interrupt for the trigger action.
-    // The interrupt call the trigger method.
-    attachInterrupt(digitalPinToInterrupt(TRIGGER_PIN), trigger, CHANGE);
+    triggerButton.setDebounceTime(antiGhostingDelay);
 
     Serial.println("+++ Chainsword Initialisation +++");
     chainSword.setLightController(&controller);
@@ -69,25 +69,22 @@ void setup()
 
 /**
  * @brief Arduino loop callback. execute the statemachine execute method.
- * 
+ *
  */
 void loop()
 {
     unsigned long currentMillis = millis();
-    chainSword.execute(currentMillis);
-}
+    triggerButton.loop();
 
-/**
- * @brief Method called when the trigger is pulled or released.
- * Anti ghosting delay is provided to avoid ghost calls.
- * 
- */
-void trigger()
-{
-    unsigned long currentMillis = millis();
-    if ((currentMillis - previousDelay) > antiGhostingDelay)
+    if (triggerButton.isPressed())
     {
-        previousDelay = currentMillis;
-        chainSword.toggleTrigger(currentMillis);        
+        chainSword.toggleTrigger(currentMillis);
     }
+
+    if (triggerButton.isReleased())
+    {
+        chainSword.toggleTrigger(currentMillis);
+    }
+
+    chainSword.execute(currentMillis);
 }

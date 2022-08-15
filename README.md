@@ -23,91 +23,91 @@ Let's start by taking a look at everything we're going to need before the assemb
 The chainsword is mainly made of 3D printed parts. Here is the list, sorted by printing parameters I used:
 
 - **PLA 0.2mm**
-  - Intermediate_Structure.stl x3 
-  - Bottom_Structure.stl x1
-  - Top_Structure x1
-  - Broom_Holder.stl x10
-  - Cross_Guard.stl x1
-  - Cross_Guard_Hatch.stl x1
-  - Guard.stl x1
-  - Handle.stl x1
-  - Base_Blade_Cover.stl x1
-  - Blade_Cover_First_Section.stl x1
-  - Blade_Cover_Second_Section.stl x1
-  - Blade_Cover_Third_Section.stl x1
-  - Blade_Cover_Head.stl x1
-  - Tooth_Base.stl x75
+  - Intermediate_Structure.stl **x3** 
+  - Bottom_Structure.stl **x1**
+  - Top_Structure **x1**
+  - Broom_Holder.stl **x10**
+  - Cross_Guard.stl **x1**
+  - Cross_Guard_Hatch.stl **x1**
+  - Guard.stl **x1**
+  - Handle.stl **x1**
+  - Base_Blade_Cover.stl **x1**
+  - Blade_Cover_First_Section.stl **x1**
+  - Blade_Cover_Second_Section.stl **x1**
+  - Blade_Cover_Third_Section.stl **x1**
+  - Blade_Cover_Head.stl **x1**
+  - Tooth_Base.stl **x75**
 - **PLA 0.1mm**
-  - Top_Structure_Gear_Rail.stl x1
-  - Top_Structure_End.stl x1
-  - Top_Gear_Wheel.stl x1
-  - Motorized_Gear_Wheel.stl x1
-  - Motorized_Gear_Wheel_Axis.stl x1
-  - Trigger.stl x1
-  - Trigger_Axis.stl x1
-  - Display_Gear_Wheel_Cover.stl x1
-  - Motor_Axis_Opening_Cover.stl x1
-  - Base_Blade_Cover_Teeth_Opening_Cover.stl x1
+  - Top_Structure_Gear_Rail.stl **x1**
+  - Top_Structure_End.stl **x1**
+  - Top_Gear_Wheel.stl **x1**
+  - Motorized_Gear_Wheel.stl **x1**
+  - Motorized_Gear_Wheel_Axis.stl **x1**
+  - Trigger.stl **x1**
+  - Trigger_Axis.stl **x1**
+  - Display_Gear_Wheel_Cover.stl **x1**
+  - Motor_Axis_Opening_Cover.stl **x1**
+  - Base_Blade_Cover_Teeth_Opening_Cover.stl **x1**
 - **Phosphorescent PLA 0.1mm**
-  - Blade_Cover_Head_Rune_Front.stl x1
-  - Blade_Cover_Head_Rune_Back.stl x1
-  - Blade_Cover_Third_Section_Front.stl x1
-  - Blade_Cover_Third_Section_Back.stl x1
-  - Blade_Cover_Second_Section_Front.stl x1
-  - Blade_Cover_Second_Section_Back.stl x1
-  - Blade_Cover_First_Section_Front.stl x1
-  - Blade_Cover_First_Section_Back.stl x1
+  - Blade_Cover_Head_Rune_Front.stl **x1**
+  - Blade_Cover_Head_Rune_Back.stl **x1**
+  - Blade_Cover_Third_Section_Front.stl **x1**
+  - Blade_Cover_Third_Section_Back.stl **x1**
+  - Blade_Cover_Second_Section_Front.stl **x1**
+  - Blade_Cover_Second_Section_Back.stl **x1**
+  - Blade_Cover_First_Section_Front.stl **x1**
+  - Blade_Cover_First_Section_Back.stl **x1**
 - **Resin 0.05mm**
-  - Display_Gear_Wheel.stl x1
-  - Tooth_Basic_Top.stl x64
-  - Tooth_V_Top.stl x1
-  - Tooth_L_Top.stl x1
-  - Tooth_K_Top.stl x2
-  - Tooth_A_Top.stl x2
-  - Tooth_F_Top.stl x1
-  - Tooth_E_Top.stl x1
-  - Tooth_N_Top.stl x1
-  - Tooth_R_Top.stl x1
-  - Tooth_Y_Top.stl x1
-  - Pommel x1
+  - Display_Gear_Wheel.stl **x1**
+  - Tooth_Basic_Top.stl **x64**
+  - Tooth_V_Top.stl **x1**
+  - Tooth_L_Top.stl **x1**
+  - Tooth_K_Top.stl **x2**
+  - Tooth_A_Top.stl **x2**
+  - Tooth_F_Top.stl **x1**
+  - Tooth_E_Top.stl **x1**
+  - Tooth_N_Top.stl **x1**
+  - Tooth_R_Top.stl **x1**
+  - Tooth_Y_Top.stl **x1**
+  - Pommel **x1**
 
 ### Hardware
 Although the 3D parts make up most of the sword, we'll also need some hardware to assemble the sword:
 - **Screws**
-  - M2x8 x4
-  - M2x12 x2
-  - M2x16 Screw x2
-  - M3x8 x7
-  - M3x12 x10
-  - M3x16 x40
-  - M3x20 x4
-  - M3x25 x2
-  - M3x40 x1
-  - 3x20 wood screw x12
+  - M2x8 **x4**
+  - M2x12 **x2**
+  - M2x16 Screw **x2**
+  - M3x8 **x7**
+  - M3x12 **x10**
+  - M3x16 **x40**
+  - M3x20 **x4**
+  - M3x25 **x2**
+  - M3x40 **x1**
+  - 3x20 wood screw **x12**
 - **Nuts**
-  - M2 x2
-  - M3 x55
+  - M2 **x2**
+  - M3 **x55**
 - **Threaded Insert for plastic**
-  - M3x10x5 x9
-  - M2x4x3.5 x6
+  - M3x10x5 **x9**
+  - M2x4x3.5 **x6**
   
 ### Electronics
 For the chainsword to work, we'll need electronic parts:
-- GearMotor DG01D x1
-- microswitch SS-5GL x1
-- Pololu A-Star 32U4 Micro microcontroller x1
-- WS2812B Led Strip x1 (at least 18 Leds)
-- On/Off Switch x1
-- Type N Mosfet (i.e. IRF520) x1
-- Diode x1
-- Battery 7.4v 500mah
+- GearMotor DG01D **x1**
+- microswitch SS-5GL **x1**
+- Pololu A-Star 32U4 Micro microcontroller **x1**
+- WS2812B Led Strip **x1** _(at least 18 Leds)_
+- On/Off Switch **x1**
+- Type N Mosfet (i.e. IRF520) **x1**
+- Diode **x1**
+- Battery 7.4v 500mah **x1**
   
 ### Other
 Other parts are needed:
-- Broom stick, around 120 cm, 25 mm diameter x1
-- 608-zz ABEC bearing x2
-- ~6x40mm spring x1
-- ~7-20mm spring x1
+- Broom stick, around 120 cm, 25 mm diameter **x1**
+- 608-zz ABEC bearing **x2**
+- ~6x40mm spring **x1**
+- ~7-20mm spring **x1**
 
 ### Tools
 Finally, we'll need tools to assemble the chainsword:
